@@ -1,0 +1,100 @@
+{
+    "name": "wendelladriel/laravel-exa",
+    "type": "project",
+    "description": "Opinionated Modularized API Skeleton for Laravel",
+    "keywords": [
+        "framework",
+        "laravel",
+        "api",
+        "boilerplate",
+        "skeleton"
+    ],
+    "license": "MIT",
+    "support": {
+        "issues": "https://github.com/WendellAdriel/laravel-exa/issues",
+        "source": "https://github.com/WendellAdriel/laravel-exa"
+    },
+    "authors": [
+        {
+            "name": "Wendell Adriel",
+            "email": "wendelladriel.ti@gmail.com"
+        }
+    ],
+    "require": {
+        "php": "^8.2",
+        "ext-curl": "*",
+        "guzzlehttp/guzzle": "^7.5",
+        "laravel/framework": "^10.0",
+        "laravel/sanctum": "^3.2.1",
+        "laravel/tinker": "^2.8",
+        "strictus/strictus": "^1.0",
+        "wendelladriel/laravel-validated-dto": "^2.2.5"
+    },
+    "require-dev": {
+        "brainmaestro/composer-git-hooks": "v3.0.0-alpha.1",
+        "fakerphp/faker": "^1.21",
+        "laravel/pint": "^1.5",
+        "laravel/sail": "^1.20.2",
+        "mockery/mockery": "^1.5.1",
+        "nunomaduro/collision": "^7.0.2",
+        "pestphp/pest": "2.x-dev",
+        "pestphp/pest-plugin-laravel": "2.x-dev",
+        "phpunit/phpunit": "^10.0.7",
+        "spatie/laravel-ignition": "^2.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/",
+            "Exa\\": "exa/",
+            "Modules\\": "modules/",
+            "Database\\Factories\\": "database/factories/",
+            "Database\\Seeders\\": "database/seeders/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "post-install-cmd": [
+            "cghooks add --ignore-lock"
+        ],
+        "post-autoload-dump": [
+            "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
+            "@php artisan package:discover --ansi"
+        ],
+        "post-update-cmd": [
+            "@php artisan vendor:publish --tag=laravel-assets --ansi --force",
+            "cghooks update"
+        ],
+        "post-root-package-install": [
+            "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
+        ],
+        "post-create-project-cmd": [
+            "@php artisan key:generate --ansi"
+        ]
+    },
+    "extra": {
+        "laravel": {
+            "dont-discover": []
+        },
+        "hooks": {
+            "pre-commit": [
+                "make prepare",
+                "git add ."
+            ]
+        }
+    },
+    "config": {
+        "optimize-autoloader": true,
+        "preferred-install": "dist",
+        "sort-packages": true,
+        "allow-plugins": {
+            "pestphp/pest-plugin": true,
+            "php-http/discovery": true
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
