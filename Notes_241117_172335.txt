@@ -1,5 +1,6 @@
 BRC-KB-03-10323
-
+$2y$10$gi9ycjTes.WOpM3pL7u/gOiGKaXNSAUvv1e0x/tKqlsdOrhOEAZmC
+UPDATE `users` SET `password` = '$2y$10$gi9ycjTes.WOpM3pL7u/gOiGKaXNSAUvv1e0x/tKqlsdOrhOEAZmC' WHERE `users`.`id` = 1;
 https://scribehow.com/page/A-LIS_upgrade_guide__6dVEox5hRzuMGo9t_Fhh3w
 ssh-keygen -t ed25519 -C "kedkayz@gmail.com"
 cat ~/.ssh/id_ed25519.pub
