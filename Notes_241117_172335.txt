@@ -1,0 +1,125 @@
+BRC-KB-03-10323
+
+https://scribehow.com/page/A-LIS_upgrade_guide__6dVEox5hRzuMGo9t_Fhh3w
+ssh-keygen -t ed25519 -C "kedkayz@gmail.com"
+cat ~/.ssh/id_ed25519.pub
+ssh -T git@github.com
+sudo apt update
+sudo apt install apache2 -y
+sudo systemctl enable apache2 
+sudo systemctl start apache2
+sudo add-apt-repository ppa:ondrej/php
+sudo apt update
+sudo apt install php7.4 
+sudo apt install php7.4-cli -
+sudo apt install php7.4-fpm -
+sudo apt install php7.4-curl -
+sudo apt install php7.4-mbstring- 
+sudo apt install php7.4-xml- 
+sudo apt install php7.4-zip- 
+sudo apt install php7.4-intl 
+sudo apt install php7.4-gd -y
+sudo apt update
+sudo apt install php7.4 php7.4-cli php7.4-curl php7.4-mbstring php7.4-xml php7.4-mysql libapache2-mod-php7.4
+sudo update-alternatives --set phpize /usr/bin/phpize7.4
+sudo update-alternatives --set php-config /usr/bin/php-config7.4
+sudo a2dismod php8.3
+sudo a2enmod php7.4
+sudo systemctl restart apache2
+# Navigate to the Laravel project directory
+cd /var/www/html
+
+# Set the correct ownership for all files and directories in the Laravel project
+# Assuming Apache runs as the 'www-data' user and group
+sudo chown -R www-data:www-data storage bootstrap/cache
+
+# Set appropriate directory and file permissions
+sudo find storage bootstrap/cache -type d -exec chmod 775 {} \;
+sudo find storage bootstrap/cache -type f -exec chmod 664 {} \;
+
+
+sudo apt update
+sudo apt install libapache2-mod-php
+sudo apache2ctl -M | grep php
+sudo systemctl restart apache2
+sudo apt install php-curl
+sudo phpenmod curl
+sudo systemctl restart apache2
+php -m | grep curl
+
+
+
+
+sudo apt install php7.4-mysql 
+sudo apt install php7.4-pgsql -y
+sudo systemctl restart apache2
+
+mysql sever
+sudo apt install mysql-server -y
+sudo mysql_secure_installation
+sudo mysql -u root -p
+CREATE DATABASE alis_v4; CREATE USER 'alis'@'localhost' IDENTIFIED BY 'Alis441f!'; GRANT ALL PRIVILEGES ON alis_v4.* TO 'alis'@'localhost'; FLUSH PRIVILEGES;
+GRANT ALL PRIVILEGES ON *.* TO 'alis'@'localhost' WITH GRANT OPTION;
+GRANT SUPER ON *.* TO 'alis'@'localhost';
+mysql -u alis -p'Alis441f!' alis_v4 < Desktop/aliskambuga.sql
+mysqldump -u alis -p'Alis441f!' alis_v4 > Desktop/db_backup.sql
+sudo mysql -u root -p
+use alis-v4;show tables;
+kdir -p ~/Desktop/Backup
+mysqldump -u alis -p'Alis441f!' alis_v4 > ~/Desktop/Backup/db_backup2.sql
+
+
+
+composer
+php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+sudo apt install curl
+sudo mv /home/ked/composer.phar /usr/local/bin/composer
+curl -sS https://getcomposer.org/installer | php
+HASH="$(curl -sS https://composer.github.io/installer.sig)" php -r "if (hash_file('sha384', 'composer-setup.php') === '$HASH') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;"
+
+sudo php composer-setup.php --install-dir=/usr/local/bin --filename=composer
+
+composer -V
+ cd /var/www/html/
+sudo chown -R www-data:www-data /var/www/
+sudo chmod -R 777 /var/www/
+cd /var/www/html/
+git clone git@github.com:cphlgit/alis-v4.git
+git clone git@github.com:cphlgit/alis-v4.git /var/www/html/alis-v4
+sudo nano /etc/apache2/sites-available/alis-v4.conf
+<VirtualHost *:80>
+    ServerAdmin admin@example.com
+    DocumentRoot /var/www/html/alis-v4/public
+    ServerName 127.0.0.1
+
+    <Directory /var/www/html/alis-v4/public>
+        AllowOverride All
+        Require all granted
+    </Directory>
+
+    ErrorLog ${APACHE_LOG_DIR}/alis-v4_error.log
+    CustomLog ${APACHE_LOG_DIR}/alis-v4_access.log combined
+</VirtualHost>
+sudo a2ensite alis-v4.conf 
+sudo a2enmod rewrite 
+sudo systemctl reload apache2
+sudo systemctl restart apache2
+
+
+crontab -e
+*/5 * * * * /usr/bin/curl http://127.0.0.1/eafya-patient
+
+
+eAFYA_DB_CONNECTION=pgsql 
+
+eAFYA_DB_HOST=192.168.88.10
+
+eAFYA_DB_PORT=5432 
+
+eAFYA_DB_DATABASE=kambugaeafyadb 
+
+eAFYA_DB_USERNAME=postgres 
+
+eAFYA_DB_PASSWORD=KGH@EAFYA2028!
+db name - kambugaeafyadb  username - postgres  password KGH@EAFYA2028!
+

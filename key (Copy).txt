@@ -1,0 +1,269 @@
+ssh-keygen -t ed25519 -C "kedkayz@gmail.com"
+cat .ssh/id_ed25519.pub
+ssh -T git@github.com
+ked@ked-Latitude-5420:~$ sudo apt update -y && apt upgrade -y
+
+ked@ked-Latitude-5420:~$ sudo apt install git
+
+
+
+
+ked@ked-Latitude-5420:~$ php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+ked@ked-Latitude-5420:~$ sudo apt install curl php-cli php-mbstring git unzip
+
+ked@ked-Latitude-5420:~$ php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+ked@ked-Latitude-5420:~$ sudo php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+ked@ked-Latitude-5420:~$ composer --version
+sudo apt install composer
+ked@ked-Latitude-5420:~$ sudo apt install composer
+
+ked@ked-Latitude-5420:~$ sudo apt install php7.4 php7.4-cli php7.4-fpm php7.4-mbstring php7.4-xml php7.4-mysql
+ked@ked-Latitude-5420:~$ sudo add-apt-repository ppa:ondrej/php
+
+
+======================================APACHECH CONFIG=========================
+ked@ked-Latitude-5420:~$ sudo apt install apache2 -y
+ked@ked-Latitude-5420:~$ sudo systemctl enable apache2
+ked@ked-Latitude-5420:~$ sudo systemctl start apache2
+ked@ked-Latitude-5420:~$ sudo systemctl restart apache2
+ked@ked-Latitude-5420:~$ sudo nano /etc/apache2/sites-available/alis-v4.conf
+<VirtualHost *:80>
+    ServerAdmin admin@example.com
+    DocumentRoot /var/www/html/alis-v4/public
+    ServerName 127.0.0.1
+
+    <Directory /var/www/html/alis-v4/public>
+        AllowOverride All
+        Require all granted
+    </Directory>
+
+    ErrorLog ${APACHE_LOG_DIR}/alis-v4_error.log
+    CustomLog ${APACHE_LOG_DIR}/alis-v4_access.log combined
+</VirtualHost>
+ked@ked-Latitude-5420:~$ sudo systemctl reload apache2
+ked@ked-Latitude-5420:~$ sudo systemctl status apache2
+
+=======================================MYSQL CONFIG=======================
+ked@ked-Latitude-5420:~$ sudo apt install mysql-server -y
+ked@ked-Latitude-5420:~$ sudo mysql_secure_installation
+ked@ked-Latitude-5420:~$ sudo mysql -u root -p
+mysql> CREATE DATABASE alis_v4; CREATE USER 'alis'@'localhost' IDENTIFIED BY 'Alis441k!'; GRANT ALL PRIVILEGES ON alis_v4.* TO 'alis'@'localhost'; FLUSH PRIVILEGES;
+mysql>GRANT ALL PRIVILEGES ON *.* TO 'alis'@'localhost' WITH GRANT OPTION;
+mysql> GRANT SUPER ON *.* TO 'alis'@'localhost';
+sudo mysql -u root -p alis_v4 < /var/www/html/alis-v4/alis.sql
+
+ cd /var/www/html/
+sudo chown -R www-data:www-data /var/www/
+sudo chmod -R 777 /var/www/
+git clone git@github.com:cphlgit/alis-v4.git
+
+sudo apt install php7.4-dev
+
+
+for cloning
+git clone git@github.com:cphlgit/alis-v4.git
+fatal: could not create work tree dir 'alis-v4': Permission denied
+sudo chown -R www-data:www-data /var/www/
+sudo chmod -R 777 /var/www/
+git clone git@github.com:cphlgit/alis-v4.git
+
+ked@ked-Latitude-5420:/var/www/html/alis-v4$ sudo chown -R www-data:www-data /var/www/html/alis-v4 
+ked@ked-Latitude-5420:/var/www/html/alis-v4$ sudo chmod -R 755 /var/www/html/alis-v4
+ked@ked-Latitude-5420:/var/www/html/alis-v4$ php7.4 /usr/local/bin/composer install
+git config --global --add safe.directory /var/www/html/alis-v4
+ked@ked-Latitude-5420:/var/www/html/alis-v4$ cd storage/framework/
+ked@ked-Latitude-5420:/var/www/html/alis-v4/storage/framework$ sudo chmod -R 777 /var/www/html/alis-v4
+ked@ked-Latitude-5420:/var/www/html/alis-v4/storage/framework$ mkdir views
+ked@ked-Latitude-5420:/var/www/html/alis-v4$ php7.4 /usr/local/bin/composer install
+ked@ked-Latitude-5420:/var/www/html/alis-v4$ cp /var/www/html/alis-v4/.env.example /var/www/html/alis-v4/.env
+ked@ked-Latitude-5420:/var/www/html/alis-v4$ 
+ked@ked-Latitude-5420:/var/www/html/alis-v4$ nano .env
+ked@ked-Latitude-5420:/var/www/html/alis-v4$ git add .
+ked@ked-Latitude-5420:/var/www/html/alis-v4$ git stash
+ked@ked-Latitude-5420:/var/www/html/alis-v4$ git checkout ben@eafya
+sudo chmod -w 777 /var/www/html/alis-v4
+ked@ked-Latitude-5420:~$ sudo chown -R www-data:www-data /var/www/html/alis-v4/storage
+ked@ked-Latitude-5420:~$ sudo chmod -R 775 /var/www/html/alis-v4/storage
+
+ked@ked-Latitude-5420:~$ sudo chown -R wwked@ked-Latitude-5420:~$ sudo chown -R www-data:www-data /var/www/html/alis-v4/storage
+ked@ked-Latitude-5420:~$ sudo chmod -R 775 /var/www/html/alis-v4/storage
+ked@ked-Latitude-5420:~$ sudo chmod -R 775 /var/www/html/alis-v4/storage
+
+
+
+sudo add-apt-repository ppa:ondrej/php
+sudo apt-get update
+
+Install PHP 7.4:
+
+sudo apt-get install php7.4
+php -v
+
+
+
+For a quicker solution, scroll to the bottom of this document.
+Step 1: Generate and Add SSH Key for GitHub
+Generate a new SSH key pair on your deployment server (press Enter through prompts to accept defaults):
+bash
+Copy code
+ssh-keygen -t ed25519 -C "your_email@example.com"
+Display the public key to copy:
+bash
+Copy code
+cat ~/.ssh/id_ed25519.pub
+Add the SSH key to GitHub:
+Log in to GitHub and go to Settings > SSH and GPG keys.
+Click New SSH key, paste the copied public key, and save.
+Test the SSH connection to GitHub:
+bash
+Copy code
+ssh -T git@github.com
+Step 2: Clone the Repository Using SSH
+Clone the alis-v4 repository to your server:
+bash
+Copy code
+git clone git@github.com:cphlgit/alis-v4.git /var/www/alis-v4
+Navigate to the project directory:
+bash
+Copy code
+cd /var/www/alis-v4
+Step 3: Install Apache2
+Update system packages:
+bash
+Copy code
+sudo apt update
+Install Apache2:
+bash
+Copy code
+sudo apt install apache2 -y
+Enable Apache to start on boot and start Apache:
+bash
+Copy code
+sudo systemctl enable apache2 sudo systemctl start apache2
+Step 4: Install PHP 7.4 and Required Extensions
+Install PHP 7.4 and common extensions:
+bash
+Copy code
+sudo apt install php7.4 php7.4-cli php7.4-fpm php7.4-curl php7.4-mbstring php7.4-xml php7.4-zip php7.4-intl php7.4-gd -y
+Install MySQL and PostgreSQL PHP extensions:
+bash
+Copy code
+sudo apt install php7.4-mysql php7.4-pgsql -y
+Restart Apache to load the PHP modules:
+bash
+Copy code
+sudo systemctl restart apache2
+Step 5: Install MySQL Server
+Install MySQL server:
+bash
+Copy code
+sudo apt install mysql-server -y
+Secure MySQL installation (follow prompts for securing):
+bash
+Copy code
+sudo mysql_secure_installation
+Create a database and user for alis-v4:
+bash
+Copy code
+sudo mysql -u root -p
+Inside the MySQL shell, run:
+sql
+Copy code
+CREATE DATABASE alis_v4; CREATE USER 'alis'@'localhost' IDENTIFIED BY '@l! 5'; GRANT ALL PRIVILEGES ON alis_v4.* TO 'alis'@'localhost'; FLUSH PRIVILEGES; EXIT;
+Step 6: Install Composer Version 2
+Download Composer installer:
+bash
+Copy code
+php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+Verify the installer (optional but recommended):
+bash
+Copy code
+HASH="$(curl -sS https://composer.github.io/installer.sig)" php -r "if (hash_file('sha384', 'composer-setup.php') === '$HASH') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;"
+Install Composer globally:
+bash
+Copy code
+sudo php composer-setup.php --install-dir=/usr/local/bin --filename=composer
+Check the Composer version to ensure version 2 is installed:
+bash
+Copy code
+composer -V
+Step 7: Run composer install for alis-v4
+Navigate to the project directory where you cloned alis-v4:
+bash
+Copy code
+cd /var/www/alis-v4
+Run composer install to install dependencies:
+bash
+Copy code
+composer install
+Adjust Permissions on the vendor folder:
+bash
+Copy code
+sudo chown -R www-data:www-data /var/www/alis-v4 sudo chmod -R 755 /var/www/alis-v4
+Step 8: Configure Apache Virtual Host for alis-v4
+Create a new Apache configuration file for alis-v4:
+bash
+Copy code
+sudo nano /etc/apache2/sites-available/alis-v4.conf
+Add the following configuration to the file:
+apache
+Copy code
+<VirtualHost *:80> ServerAdmin admin@example.com DocumentRoot /var/www/alis-v4/public ServerName your_domain_or_ip <Directory /var/www/alis-v4/public> AllowOverride All Require all granted </Directory> ErrorLog ${APACHE_LOG_DIR}/alis-v4_error.log CustomLog ${APACHE_LOG_DIR}/alis-v4_access.log combined </VirtualHost>
+Enable the new site and the rewrite module:
+bash
+Copy code
+sudo a2ensite alis-v4.conf sudo a2enmod rewrite sudo systemctl reload apache2
+Step 9: Set Up a Cron Job to Hit /eafya-patient Endpoint
+Open the crontab for the current user:
+bash
+Copy code
+crontab -e
+Add the following cron job (adjust the timing if needed; this example is every 5 minutes):
+bash
+Copy code
+*/5 * * * * /usr/bin/curl http://127.0.0.1/eafya-patient
+Save and exit the crontab editor.
+Step 10: Test the Setup
+Verify Apache server status:
+bash
+Copy code
+sudo systemctl status apache2
+Access the application in a web browser to ensure it’s working:
+plaintext
+Copy code
+http://your_domain_or_ip
+Confirm the cron job is functioning by checking server logs or hitting the endpoint manually.
+Step 11: Configure Environment Variables in .env with Faker Values
+Copy the example environment file to create a new .env file:
+bash
+Copy code
+cp /var/www/alis-v4/.env.example /var/www/alis-v4/.env
+Open the .env file for editing:
+bash
+Copy code
+nano /var/www/alis-v4/.env
+Replace sensitive variables with fake (placeholder) values in the .env file:
+```
+
+## eAfya Database Connection 
+
+eAFYA_DB_CONNECTION=pgsql 
+
+eAFYA_DB_HOST=192.168.88.10
+
+eAFYA_DB_PORT=5432 
+
+eAFYA_DB_DATABASE=kambugaeafyadb 
+
+eAFYA_DB_USERNAME=postgres 
+
+eAFYA_DB_PASSWORD=KGH@EAFYA2028!
+```
+Save and exit the editor.
+Clear the application cache to ensure the environment changes take effect:
+bash
+Copy code
+php artisan config:cache
+
+
+
