@@ -5,7 +5,7 @@ ked@ked-Latitude-5420:~$ sudo apt update -y && apt upgrade -y
 
 ked@ked-Latitude-5420:~$ sudo apt install git
 
-
+https://filetransfer.io/data-package/rX3SNLZV#link
 
 
 ked@ked-Latitude-5420:~$ php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
