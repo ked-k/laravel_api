@@ -1,0 +1,2452 @@
+-- --------------------------------------------------------
+-- Host:                         127.0.0.1
+-- Server version:               5.7.31 - MySQL Community Server (GPL)
+-- Server OS:                    Win64
+-- HeidiSQL Version:             11.0.0.5919
+-- --------------------------------------------------------
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET NAMES utf8 */;
+/*!50503 SET NAMES utf8mb4 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+
+
+-- Dumping database structure for alis
+DROP DATABASE IF EXISTS `alis`;
+CREATE DATABASE IF NOT EXISTS `alis` /*!40100 DEFAULT CHARACTER SET latin1 */;
+USE `alis`;
+
+-- Dumping structure for table alis.adhoc_configs
+DROP TABLE IF EXISTS `adhoc_configs`;
+CREATE TABLE IF NOT EXISTS `adhoc_configs` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(191) COLLATE utf8_unicode_ci NOT NULL,
+  `option` int(10) unsigned DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Data exporting was unselected.
+
+-- Dumping structure for table alis.analytic_specimen_rejections
+DROP TABLE IF EXISTS `analytic_specimen_rejections`;
+CREATE TABLE IF NOT EXISTS `analytic_specimen_rejections` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `test_id` int(10) unsigned NOT NULL,
+  `specimen_id` int(10) unsigned NOT NULL,
+  `rejected_by` int(10) unsigned NOT NULL,
+  `rejection_reason_id` int(10) unsigned DEFAULT NULL,
+  `reject_explained_to` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `time_rejected` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `analytic_specimen_rejections_rejected_by_index` (`rejected_by`),
+  KEY `analytic_specimen_rejections_test_id_foreign` (`test_id`),
+  KEY `analytic_specimen_rejections_specimen_id_foreign` (`specimen_id`),
+  KEY `analytic_specimen_rejections_rejection_reason_id_foreign` (`rejection_reason_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Data exporting was unselected.
+
+-- Dumping structure for table alis.analytic_specimen_rejection_reasons
+DROP TABLE IF EXISTS `analytic_specimen_rejection_reasons`;
+CREATE TABLE IF NOT EXISTS `analytic_specimen_rejection_reasons` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `specimen_id` int(10) unsigned NOT NULL,
+  `rejection_id` int(10) unsigned NOT NULL,
+  `reason_id` int(10) unsigned NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `analytic_specimen_rejection_reasons_specimen_id_foreign` (`specimen_id`),
+  KEY `analytic_specimen_rejection_reasons_rejection_id_foreign` (`rejection_id`),
+  KEY `analytic_specimen_rejection_reasons_reason_id_foreign` (`reason_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Data exporting was unselected.
+
+-- Dumping structure for table alis.assigned_roles
+DROP TABLE IF EXISTS `assigned_roles`;
+CREATE TABLE IF NOT EXISTS `assigned_roles` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` int(10) unsigned NOT NULL,
+  `role_id` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `assigned_roles_user_id_foreign` (`user_id`),
+  KEY `assigned_roles_role_id_foreign` (`role_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=77 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Data exporting was unselected.
+
+-- Dumping structure for table alis.barcode_settings
+DROP TABLE IF EXISTS `barcode_settings`;
+CREATE TABLE IF NOT EXISTS `barcode_settings` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `encoding_format` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `barcode_width` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `barcode_height` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `text_size` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Data exporting was unselected.
+
+-- Dumping structure for table alis.blood_bank
+DROP TABLE IF EXISTS `blood_bank`;
+CREATE TABLE IF NOT EXISTS `blood_bank` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `unit_no` varchar(191) COLLATE utf8_unicode_ci NOT NULL,
+  `group` varchar(191) COLLATE utf8_unicode_ci NOT NULL,
+  `rhs` varchar(191) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `blood_component` varchar(191) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `amount` int(11) DEFAULT NULL,
+  `donation_date` date DEFAULT NULL,
+  `expiry_date` date DEFAULT NULL,
+  `status` int(11) NOT NULL DEFAULT '0',
+  `created_by` int(11) NOT NULL,
+  `edited_by` int(11) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Data exporting was unselected.
+
+-- Dumping structure for table alis.blood_transfer
+DROP TABLE IF EXISTS `blood_transfer`;
+CREATE TABLE IF NOT EXISTS `blood_transfer` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `blood_bank_id` int(11) NOT NULL,
+  `transfer_reason` varchar(191) COLLATE utf8_unicode_ci NOT NULL,
+  `destination` varchar(191) COLLATE utf8_unicode_ci NOT NULL,
+  `reference` varchar(191) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `date` date DEFAULT NULL,
+  `created_by` int(11) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Data exporting was unselected.
+
+-- Dumping structure for table alis.clinicians
+DROP TABLE IF EXISTS `clinicians`;
+CREATE TABLE IF NOT EXISTS `clinicians` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(191) COLLATE utf8_unicode_ci NOT NULL,
+  `cadre` varchar(191) COLLATE utf8_unicode_ci NOT NULL,
+  `phone` varchar(191) COLLATE utf8_unicode_ci NOT NULL,
+  `email` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `active` int(3) NOT NULL DEFAULT '0',
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Data exporting was unselected.
+
+-- Dumping structure for table alis.commodities
+DROP TABLE IF EXISTS `commodities`;
+CREATE TABLE IF NOT EXISTS `commodities` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `description` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `metric_id` int(10) unsigned NOT NULL,
+  `unit_price` decimal(8,2) NOT NULL,
+  `item_code` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `storage_req` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `min_level` int(11) NOT NULL,
+  `max_level` int(11) NOT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `commodities_metric_id_foreign` (`metric_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Data exporting was unselected.
+
+-- Dumping structure for table alis.controls
+DROP TABLE IF EXISTS `controls`;
+CREATE TABLE IF NOT EXISTS `controls` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `description` varchar(400) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `lot_id` int(10) unsigned NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `controls_name_unique` (`name`),
+  KEY `controls_lot_id_foreign` (`lot_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Data exporting was unselected.
+
+-- Dumping structure for table alis.control_measures
+DROP TABLE IF EXISTS `control_measures`;
+CREATE TABLE IF NOT EXISTS `control_measures` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(191) COLLATE utf8_unicode_ci NOT NULL,
+  `unit` varchar(191) COLLATE utf8_unicode_ci NOT NULL,
+  `control_id` int(10) unsigned NOT NULL,
+  `control_measure_type_id` int(10) unsigned NOT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `control_measures_control_measure_type_id_foreign` (`control_measure_type_id`),
+  KEY `control_measures_control_id_foreign` (`control_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Data exporting was unselected.
+
+-- Dumping structure for table alis.control_measure_ranges
+DROP TABLE IF EXISTS `control_measure_ranges`;
+CREATE TABLE IF NOT EXISTS `control_measure_ranges` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `upper_range` decimal(6,2) DEFAULT NULL,
+  `lower_range` decimal(6,2) DEFAULT NULL,
+  `alphanumeric` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `control_measure_id` int(10) unsigned NOT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `control_measure_ranges_control_measure_id_foreign` (`control_measure_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Data exporting was unselected.
+
+-- Dumping structure for table alis.control_results
+DROP TABLE IF EXISTS `control_results`;
+CREATE TABLE IF NOT EXISTS `control_results` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `results` varchar(191) COLLATE utf8_unicode_ci NOT NULL,
+  `control_measure_id` int(10) unsigned NOT NULL,
+  `control_test_id` int(10) unsigned NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `control_results_control_test_id_foreign` (`control_test_id`),
+  KEY `control_results_control_measure_id_foreign` (`control_measure_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Data exporting was unselected.
+
+-- Dumping structure for table alis.control_tests
+DROP TABLE IF EXISTS `control_tests`;
+CREATE TABLE IF NOT EXISTS `control_tests` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `entered_by` int(10) unsigned NOT NULL,
+  `control_id` int(10) unsigned NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `control_tests_control_id_foreign` (`control_id`),
+  KEY `control_tests_entered_by_foreign` (`entered_by`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Data exporting was unselected.
+
+-- Dumping structure for table alis.culture_durations
+DROP TABLE IF EXISTS `culture_durations`;
+CREATE TABLE IF NOT EXISTS `culture_durations` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `duration` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Data exporting was unselected.
+
+-- Dumping structure for table alis.culture_observations
+DROP TABLE IF EXISTS `culture_observations`;
+CREATE TABLE IF NOT EXISTS `culture_observations` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` int(10) unsigned NOT NULL,
+  `test_id` int(10) unsigned NOT NULL,
+  `observation` varchar(300) COLLATE utf8_unicode_ci NOT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `culture_observations_user_id_foreign` (`user_id`),
+  KEY `culture_observations_test_id_foreign` (`test_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Data exporting was unselected.
+
+-- Dumping structure for table alis.daily_alphanumeric_counts
+DROP TABLE IF EXISTS `daily_alphanumeric_counts`;
+CREATE TABLE IF NOT EXISTS `daily_alphanumeric_counts` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `date` date NOT NULL,
+  `daily_test_type_count_id` int(10) unsigned NOT NULL,
+  `measure_id` int(10) unsigned NOT NULL,
+  `measure_range_id` int(10) unsigned NOT NULL,
+  `result_interpretation_id` int(10) unsigned DEFAULT NULL,
+  `count` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `daily_alphanumeric_counts_daily_test_type_count_id_foreign` (`daily_test_type_count_id`),
+  KEY `daily_alphanumeric_counts_measure_id_foreign` (`measure_id`),
+  KEY `daily_alphanumeric_counts_measure_range_id_foreign` (`measure_range_id`),
+  KEY `daily_alphanumeric_counts_result_interpretation_id_foreign` (`result_interpretation_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Data exporting was unselected.
+
+-- Dumping structure for table alis.daily_gram_stain_result_counts
+DROP TABLE IF EXISTS `daily_gram_stain_result_counts`;
+CREATE TABLE IF NOT EXISTS `daily_gram_stain_result_counts` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `date` date NOT NULL,
+  `daily_test_type_count_id` int(10) unsigned NOT NULL,
+  `gram_stain_range_id` int(10) unsigned NOT NULL,
+  `count` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `daily_gram_stain_result_counts_daily_test_type_count_id_foreign` (`daily_test_type_count_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Data exporting was unselected.
+
+-- Dumping structure for table alis.daily_hiv_counts
+DROP TABLE IF EXISTS `daily_hiv_counts`;
+CREATE TABLE IF NOT EXISTS `daily_hiv_counts` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `date` date NOT NULL,
+  `daily_test_type_count_id` int(10) unsigned NOT NULL,
+  `purpose` varchar(191) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `count` int(10) unsigned NOT NULL,
+  `measure_id` int(10) unsigned DEFAULT NULL,
+  `measure_range_id` int(10) unsigned DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `daily_hiv_counts_daily_test_type_count_id_foreign` (`daily_test_type_count_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Data exporting was unselected.
+
+-- Dumping structure for table alis.daily_negative_cultures
+DROP TABLE IF EXISTS `daily_negative_cultures`;
+CREATE TABLE IF NOT EXISTS `daily_negative_cultures` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `organism_id` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Data exporting was unselected.
+
+-- Dumping structure for table alis.daily_negative_gram_stains
+DROP TABLE IF EXISTS `daily_negative_gram_stains`;
+CREATE TABLE IF NOT EXISTS `daily_negative_gram_stains` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `gram_stain_range_id` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Data exporting was unselected.
+
+-- Dumping structure for table alis.daily_numeric_range_counts
+DROP TABLE IF EXISTS `daily_numeric_range_counts`;
+CREATE TABLE IF NOT EXISTS `daily_numeric_range_counts` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `date` date NOT NULL,
+  `daily_test_type_count_id` int(10) unsigned NOT NULL,
+  `measure_id` int(10) unsigned NOT NULL,
+  `result` varchar(191) COLLATE utf8_unicode_ci NOT NULL,
+  `result_interpretation_id` int(10) unsigned DEFAULT NULL,
+  `count` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `daily_numeric_range_counts_daily_test_type_count_id_foreign` (`daily_test_type_count_id`),
+  KEY `daily_numeric_range_counts_measure_id_foreign` (`measure_id`),
+  KEY `daily_numeric_range_counts_result_interpretation_id_foreign` (`result_interpretation_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Data exporting was unselected.
+
+-- Dumping structure for table alis.daily_organism_counts
+DROP TABLE IF EXISTS `daily_organism_counts`;
+CREATE TABLE IF NOT EXISTS `daily_organism_counts` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `date` date NOT NULL,
+  `daily_test_type_count_id` int(10) unsigned NOT NULL,
+  `organism_id` int(10) unsigned NOT NULL,
+  `result_interpretation_id` int(10) unsigned DEFAULT NULL,
+  `count` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `daily_organism_counts_organism_id_foreign` (`organism_id`),
+  KEY `daily_organism_counts_result_interpretation_id_foreign` (`result_interpretation_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Data exporting was unselected.
+
+-- Dumping structure for table alis.daily_rejection_reason_counts
+DROP TABLE IF EXISTS `daily_rejection_reason_counts`;
+CREATE TABLE IF NOT EXISTS `daily_rejection_reason_counts` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `date` date NOT NULL,
+  `daily_specimen_count_id` int(10) unsigned NOT NULL,
+  `reason_id` int(10) unsigned NOT NULL,
+  `count` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `daily_rejection_reason_counts_daily_specimen_count_id_foreign` (`daily_specimen_count_id`),
+  KEY `daily_rejection_reason_counts_reason_id_foreign` (`reason_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Data exporting was unselected.
+
+-- Dumping structure for table alis.daily_specimen_counts
+DROP TABLE IF EXISTS `daily_specimen_counts`;
+CREATE TABLE IF NOT EXISTS `daily_specimen_counts` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `date` date NOT NULL,
+  `all` int(10) unsigned NOT NULL,
+  `accepted` int(10) unsigned NOT NULL,
+  `rejected` int(10) unsigned NOT NULL,
+  `referred_in` int(10) unsigned DEFAULT NULL,
+  `referred_out` int(10) unsigned DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `daily_specimen_counts_date_unique` (`date`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Data exporting was unselected.
+
+-- Dumping structure for table alis.daily_specimen_type_counts
+DROP TABLE IF EXISTS `daily_specimen_type_counts`;
+CREATE TABLE IF NOT EXISTS `daily_specimen_type_counts` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `date` date NOT NULL,
+  `daily_specimen_count_id` int(10) unsigned NOT NULL,
+  `specimen_type_id` int(10) unsigned NOT NULL,
+  `all` int(10) unsigned NOT NULL,
+  `accepted` int(10) unsigned NOT NULL,
+  `rejected` int(10) unsigned NOT NULL,
+  `referred_in` int(10) unsigned NOT NULL,
+  `referred_out` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `daily_specimen_type_counts_daily_specimen_count_id_foreign` (`daily_specimen_count_id`),
+  KEY `daily_specimen_type_counts_specimen_type_id_foreign` (`specimen_type_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Data exporting was unselected.
+
+-- Dumping structure for table alis.daily_susceptibility_counts
+DROP TABLE IF EXISTS `daily_susceptibility_counts`;
+CREATE TABLE IF NOT EXISTS `daily_susceptibility_counts` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `date` date NOT NULL,
+  `daily_organism_count_id` int(10) unsigned NOT NULL,
+  `antibiotic_id` int(10) unsigned NOT NULL,
+  `interpretation_id` int(10) unsigned NOT NULL,
+  `count` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `daily_susceptibility_counts_daily_organism_count_id_foreign` (`daily_organism_count_id`),
+  KEY `daily_susceptibility_counts_antibiotic_id_foreign` (`antibiotic_id`),
+  KEY `daily_susceptibility_counts_interpretation_id_foreign` (`interpretation_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Data exporting was unselected.
+
+-- Dumping structure for table alis.daily_test_counts
+DROP TABLE IF EXISTS `daily_test_counts`;
+CREATE TABLE IF NOT EXISTS `daily_test_counts` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `date` date NOT NULL,
+  `all` int(10) unsigned NOT NULL,
+  `referred_in` int(10) unsigned NOT NULL,
+  `referred_out` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `daily_test_counts_date_unique` (`date`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Data exporting was unselected.
+
+-- Dumping structure for table alis.daily_test_type_counts
+DROP TABLE IF EXISTS `daily_test_type_counts`;
+CREATE TABLE IF NOT EXISTS `daily_test_type_counts` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `date` date NOT NULL,
+  `daily_test_count_id` int(10) unsigned NOT NULL,
+  `test_type_id` int(10) unsigned NOT NULL,
+  `age_upper_limit` int(10) unsigned NOT NULL,
+  `age_lower_limit` int(10) unsigned NOT NULL,
+  `gender` int(10) unsigned NOT NULL,
+  `all` int(10) unsigned NOT NULL,
+  `referred_in` int(10) unsigned NOT NULL,
+  `referred_out` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `daily_test_type_counts_test_type_id_foreign` (`test_type_id`),
+  KEY `daily_test_type_counts_daily_test_count_id_foreign` (`daily_test_count_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Data exporting was unselected.
+
+-- Dumping structure for table alis.daily_turn_around_time
+DROP TABLE IF EXISTS `daily_turn_around_time`;
+CREATE TABLE IF NOT EXISTS `daily_turn_around_time` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `date` date NOT NULL,
+  `daily_test_type_count_id` int(10) unsigned NOT NULL,
+  `avg_reception_tostart` int(10) unsigned NOT NULL,
+  `avg_start_tocompletion` int(10) unsigned NOT NULL,
+  `avg_reception_tocompletion` int(10) unsigned NOT NULL,
+  `avg_start_tovarification` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `daily_turn_around_time_daily_test_type_count_id_foreign` (`daily_test_type_count_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Data exporting was unselected.
+
+-- Dumping structure for table alis.diseases
+DROP TABLE IF EXISTS `diseases`;
+CREATE TABLE IF NOT EXISTS `diseases` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(60) COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Data exporting was unselected.
+
+-- Dumping structure for table alis.drugs
+DROP TABLE IF EXISTS `drugs`;
+CREATE TABLE IF NOT EXISTS `drugs` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `description` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `drugs_name_unique` (`name`)
+) ENGINE=MyISAM AUTO_INCREMENT=40 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Data exporting was unselected.
+
+-- Dumping structure for table alis.drug_susceptibility
+DROP TABLE IF EXISTS `drug_susceptibility`;
+CREATE TABLE IF NOT EXISTS `drug_susceptibility` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` int(10) unsigned NOT NULL,
+  `drug_id` int(10) unsigned NOT NULL,
+  `isolated_organism_id` int(10) unsigned NOT NULL,
+  `drug_susceptibility_measure_id` int(10) unsigned NOT NULL,
+  `zone_diameter` int(10) unsigned DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `drug_susceptibility_user_id_foreign` (`user_id`),
+  KEY `drug_susceptibility_drug_id_foreign` (`drug_id`),
+  KEY `drug_susceptibility_isolated_organism_id_foreign` (`isolated_organism_id`),
+  KEY `drug_susceptibility_drug_susceptibility_measure_id_foreign` (`drug_susceptibility_measure_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Data exporting was unselected.
+
+-- Dumping structure for table alis.drug_susceptibility_measures
+DROP TABLE IF EXISTS `drug_susceptibility_measures`;
+CREATE TABLE IF NOT EXISTS `drug_susceptibility_measures` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `symbol` varchar(2) COLLATE utf8_unicode_ci NOT NULL,
+  `interpretation` varchar(60) COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Data exporting was unselected.
+
+-- Dumping structure for table alis.equip_config
+DROP TABLE IF EXISTS `equip_config`;
+CREATE TABLE IF NOT EXISTS `equip_config` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `equip_id` int(10) unsigned NOT NULL,
+  `prop_id` int(10) unsigned NOT NULL,
+  `prop_value` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `equip_config_equip_id_foreign` (`equip_id`),
+  KEY `equip_config_prop_id_foreign` (`prop_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Data exporting was unselected.
+
+-- Dumping structure for table alis.external_dump
+DROP TABLE IF EXISTS `external_dump`;
+CREATE TABLE IF NOT EXISTS `external_dump` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `lab_no` int(11) NOT NULL,
+  `parent_lab_no` int(11) NOT NULL,
+  `test_id` int(11) DEFAULT NULL,
+  `requesting_clinician` varchar(191) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `investigation` varchar(191) COLLATE utf8_unicode_ci NOT NULL,
+  `provisional_diagnosis` varchar(191) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `request_date` timestamp NULL DEFAULT NULL,
+  `order_stage` varchar(191) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `result` text COLLATE utf8_unicode_ci,
+  `result_returned` int(11) DEFAULT NULL,
+  `patient_visit_number` int(11) DEFAULT NULL,
+  `patient_id` int(11) NOT NULL,
+  `full_name` varchar(191) COLLATE utf8_unicode_ci NOT NULL,
+  `dob` datetime DEFAULT NULL,
+  `gender` varchar(191) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `address` varchar(191) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `postal_code` varchar(191) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `phone_number` varchar(191) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `city` varchar(191) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `cost` varchar(191) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `receipt_number` varchar(191) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `receipt_type` varchar(191) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `waiver_no` varchar(191) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `system_id` varchar(191) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `external_dump_lab_no_unique` (`lab_no`),
+  KEY `external_dump_parent_lab_no_index` (`parent_lab_no`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Data exporting was unselected.
+
+-- Dumping structure for table alis.external_users
+DROP TABLE IF EXISTS `external_users`;
+CREATE TABLE IF NOT EXISTS `external_users` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `internal_user_id` int(10) unsigned NOT NULL,
+  `external_user_id` int(11) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `external_users_internal_user_id_unique` (`internal_user_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Data exporting was unselected.
+
+-- Dumping structure for table alis.facilities
+DROP TABLE IF EXISTS `facilities`;
+CREATE TABLE IF NOT EXISTS `facilities` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(500) COLLATE utf8_unicode_ci NOT NULL,
+  `facility_contact` varchar(191) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `facility_email` varchar(191) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `active` int(11) NOT NULL,
+  `code` varchar(191) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `dhis2_name` varchar(191) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `dhis2_uid` varchar(191) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=2888 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Data exporting was unselected.
+
+-- Dumping structure for table alis.gram_break_points
+DROP TABLE IF EXISTS `gram_break_points`;
+CREATE TABLE IF NOT EXISTS `gram_break_points` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `drug_id` int(10) unsigned NOT NULL,
+  `gram_stain_range_id` int(10) unsigned NOT NULL,
+  `resistant_max` decimal(4,1) DEFAULT NULL,
+  `intermediate_min` decimal(4,1) DEFAULT NULL,
+  `intermediate_max` decimal(4,1) DEFAULT NULL,
+  `sensitive_min` decimal(4,1) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `gram_break_points_drug_id_foreign` (`drug_id`),
+  KEY `gram_break_points_gram_stain_range_id_foreign` (`gram_stain_range_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Data exporting was unselected.
+
+-- Dumping structure for table alis.gram_drug_susceptibility
+DROP TABLE IF EXISTS `gram_drug_susceptibility`;
+CREATE TABLE IF NOT EXISTS `gram_drug_susceptibility` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` int(10) unsigned NOT NULL,
+  `drug_id` int(10) unsigned NOT NULL,
+  `gram_stain_result_id` int(10) unsigned NOT NULL,
+  `drug_susceptibility_measure_id` int(10) unsigned NOT NULL,
+  `zone_diameter` int(10) unsigned DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `gram_drug_susceptibility_user_id_foreign` (`user_id`),
+  KEY `gram_drug_susceptibility_drug_id_foreign` (`drug_id`),
+  KEY `gram_drug_susceptibility_gram_stain_result_id_foreign` (`gram_stain_result_id`),
+  KEY `gram_drug_susceptibility_drug_susceptibility_measure_id_foreign` (`drug_susceptibility_measure_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Data exporting was unselected.
+
+-- Dumping structure for table alis.gram_stain_ranges
+DROP TABLE IF EXISTS `gram_stain_ranges`;
+CREATE TABLE IF NOT EXISTS `gram_stain_ranges` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(191) COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=62 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Data exporting was unselected.
+
+-- Dumping structure for table alis.gram_stain_results
+DROP TABLE IF EXISTS `gram_stain_results`;
+CREATE TABLE IF NOT EXISTS `gram_stain_results` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` int(10) unsigned NOT NULL,
+  `test_id` int(10) unsigned NOT NULL,
+  `gram_stain_range_id` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `gram_stain_results_user_id_foreign` (`user_id`),
+  KEY `gram_stain_results_test_id_foreign` (`test_id`),
+  KEY `gram_stain_results_gram_stain_range_id_foreign` (`gram_stain_range_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Data exporting was unselected.
+
+-- Dumping structure for table alis.hielogs
+DROP TABLE IF EXISTS `hielogs`;
+CREATE TABLE IF NOT EXISTS `hielogs` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `client` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `httpmethod` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `path` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `requestbody` longtext COLLATE utf8_unicode_ci,
+  `requesttime` datetime DEFAULT NULL,
+  `requestparameter` varchar(500) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `status` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
+  `statuscode` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `responsebody` longtext COLLATE utf8_unicode_ci,
+  `responsetime` datetime DEFAULT NULL,
+  `visitid` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Data exporting was unselected.
+
+-- Dumping structure for table alis.hpv_patient
+DROP TABLE IF EXISTS `hpv_patient`;
+CREATE TABLE IF NOT EXISTS `hpv_patient` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `patient_id` int(11) DEFAULT NULL,
+  `visit_id` int(11) DEFAULT NULL,
+  `test_id` int(11) DEFAULT NULL,
+  `facility_id` int(11) DEFAULT NULL,
+  `hiv_status` int(11) DEFAULT '1',
+  `art_number` varchar(191) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `clinic_id` varchar(191) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `nok_name` varchar(191) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `nok_relationship` varchar(191) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `nok_mobile` varchar(191) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `screened_status` varchar(191) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `previous_diagnostic_method` varchar(191) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `other_method` varchar(191) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `previous_screening_result` varchar(191) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `specimen_type` varchar(191) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `previous_screening_date` date DEFAULT NULL,
+  `sample_collection_date` date DEFAULT NULL,
+  `date_received_by_hw` date DEFAULT NULL,
+  `date_received_by_lab` date DEFAULT NULL,
+  `result` varchar(191) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `genotype_16` varchar(191) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `genotype_18` varchar(191) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `genotype_hr` varchar(191) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `created_by` int(11) DEFAULT NULL,
+  `uploaded` int(11) NOT NULL DEFAULT '0',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Data exporting was unselected.
+
+-- Dumping structure for table alis.hubs
+DROP TABLE IF EXISTS `hubs`;
+CREATE TABLE IF NOT EXISTS `hubs` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(191) COLLATE utf8_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Data exporting was unselected.
+
+-- Dumping structure for table alis.ii_quickcodes
+DROP TABLE IF EXISTS `ii_quickcodes`;
+CREATE TABLE IF NOT EXISTS `ii_quickcodes` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `feed_source` tinyint(4) NOT NULL,
+  `config_prop` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Data exporting was unselected.
+
+-- Dumping structure for table alis.instruments
+DROP TABLE IF EXISTS `instruments`;
+CREATE TABLE IF NOT EXISTS `instruments` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `ip` varchar(15) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `hostname` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `description` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `driver_name` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Data exporting was unselected.
+
+-- Dumping structure for table alis.instrument_testtypes
+DROP TABLE IF EXISTS `instrument_testtypes`;
+CREATE TABLE IF NOT EXISTS `instrument_testtypes` (
+  `instrument_id` int(10) unsigned NOT NULL,
+  `test_type_id` int(10) unsigned NOT NULL,
+  UNIQUE KEY `instrument_testtypes_instrument_id_test_type_id_unique` (`instrument_id`,`test_type_id`),
+  KEY `instrument_testtypes_test_type_id_foreign` (`test_type_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Data exporting was unselected.
+
+-- Dumping structure for table alis.interfaced_equipment
+DROP TABLE IF EXISTS `interfaced_equipment`;
+CREATE TABLE IF NOT EXISTS `interfaced_equipment` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `equipment_name` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `comm_type` tinyint(4) NOT NULL,
+  `equipment_version` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `lab_section` int(10) unsigned NOT NULL,
+  `feed_source` tinyint(4) NOT NULL,
+  `config_file` varchar(2000) COLLATE utf8_unicode_ci NOT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `interfaced_equipment_lab_section_foreign` (`lab_section`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Data exporting was unselected.
+
+-- Dumping structure for table alis.inv_items
+DROP TABLE IF EXISTS `inv_items`;
+CREATE TABLE IF NOT EXISTS `inv_items` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `unit` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `min_level` decimal(8,2) DEFAULT NULL,
+  `max_level` decimal(8,2) DEFAULT NULL,
+  `storage_req` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `remarks` varchar(250) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `user_id` int(10) unsigned NOT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `inv_items_name_unique` (`name`),
+  KEY `inv_items_user_id_foreign` (`user_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Data exporting was unselected.
+
+-- Dumping structure for table alis.inv_supply
+DROP TABLE IF EXISTS `inv_supply`;
+CREATE TABLE IF NOT EXISTS `inv_supply` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `item_id` int(10) unsigned NOT NULL,
+  `lot` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `batch_no` varchar(12) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `expiry_date` datetime NOT NULL,
+  `manufacturer` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `supplier_id` int(10) unsigned NOT NULL,
+  `quantity_ordered` int(11) NOT NULL DEFAULT '0',
+  `quantity_supplied` int(11) NOT NULL DEFAULT '0',
+  `cost_per_unit` decimal(5,2) DEFAULT NULL,
+  `date_of_order` date DEFAULT NULL,
+  `date_of_supply` date DEFAULT NULL,
+  `date_of_reception` date NOT NULL,
+  `remarks` varchar(250) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `user_id` int(10) unsigned NOT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `inv_supply_user_id_foreign` (`user_id`),
+  KEY `inv_supply_item_id_foreign` (`item_id`),
+  KEY `inv_supply_supplier_id_foreign` (`supplier_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Data exporting was unselected.
+
+-- Dumping structure for table alis.inv_usage
+DROP TABLE IF EXISTS `inv_usage`;
+CREATE TABLE IF NOT EXISTS `inv_usage` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `stock_id` int(10) unsigned NOT NULL,
+  `request_id` int(10) unsigned NOT NULL,
+  `quantity_used` int(11) NOT NULL DEFAULT '0',
+  `date_of_usage` date NOT NULL,
+  `issued_by` varchar(191) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `received_by` varchar(191) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `remarks` varchar(250) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `user_id` int(10) unsigned NOT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `inv_usage_user_id_foreign` (`user_id`),
+  KEY `inv_usage_stock_id_foreign` (`stock_id`),
+  KEY `inv_usage_request_id_foreign` (`request_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Data exporting was unselected.
+
+-- Dumping structure for table alis.isolated_organisms
+DROP TABLE IF EXISTS `isolated_organisms`;
+CREATE TABLE IF NOT EXISTS `isolated_organisms` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` int(10) unsigned NOT NULL,
+  `test_id` int(10) unsigned NOT NULL,
+  `organism_id` int(10) unsigned NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `isolated_organisms_user_id_foreign` (`user_id`),
+  KEY `isolated_organisms_test_id_foreign` (`test_id`),
+  KEY `isolated_organisms_organism_id_foreign` (`organism_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Data exporting was unselected.
+
+-- Dumping structure for table alis.look_ups
+DROP TABLE IF EXISTS `look_ups`;
+CREATE TABLE IF NOT EXISTS `look_ups` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(191) COLLATE utf8_unicode_ci NOT NULL,
+  `description` varchar(191) COLLATE utf8_unicode_ci NOT NULL,
+  `status` int(11) NOT NULL DEFAULT '1',
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Data exporting was unselected.
+
+-- Dumping structure for table alis.look_up_values
+DROP TABLE IF EXISTS `look_up_values`;
+CREATE TABLE IF NOT EXISTS `look_up_values` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `look_up_id` int(11) NOT NULL,
+  `value` varchar(191) COLLATE utf8_unicode_ci NOT NULL,
+  `value_description` varchar(191) COLLATE utf8_unicode_ci NOT NULL,
+  `status` int(11) NOT NULL DEFAULT '1',
+  `order` int(11) NOT NULL DEFAULT '1',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=31 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Data exporting was unselected.
+
+-- Dumping structure for table alis.lots
+DROP TABLE IF EXISTS `lots`;
+CREATE TABLE IF NOT EXISTS `lots` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `number` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `description` varchar(400) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `expiry` date NOT NULL,
+  `instrument_id` int(10) unsigned NOT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `lots_number_unique` (`number`),
+  KEY `lots_instrument_id_foreign` (`instrument_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Data exporting was unselected.
+
+-- Dumping structure for table alis.measures
+DROP TABLE IF EXISTS `measures`;
+CREATE TABLE IF NOT EXISTS `measures` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `measure_type_id` int(10) unsigned NOT NULL,
+  `name` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `unit` varchar(30) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `description` varchar(150) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `measures_measure_type_id_foreign` (`measure_type_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=100 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Data exporting was unselected.
+
+-- Dumping structure for table alis.measure_name_mappings
+DROP TABLE IF EXISTS `measure_name_mappings`;
+CREATE TABLE IF NOT EXISTS `measure_name_mappings` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `test_name_mapping_id` int(10) unsigned NOT NULL,
+  `measure_id` int(10) unsigned DEFAULT NULL,
+  `standard_name` varchar(191) COLLATE utf8_unicode_ci NOT NULL,
+  `system_name` varchar(191) COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `measure_name_mappings_system_name_unique` (`system_name`)
+) ENGINE=MyISAM AUTO_INCREMENT=110 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Data exporting was unselected.
+
+-- Dumping structure for table alis.measure_ranges
+DROP TABLE IF EXISTS `measure_ranges`;
+CREATE TABLE IF NOT EXISTS `measure_ranges` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `measure_id` int(10) unsigned NOT NULL,
+  `age_min` decimal(8,2) DEFAULT NULL,
+  `age_max` decimal(8,2) DEFAULT NULL,
+  `gender` tinyint(3) unsigned DEFAULT NULL,
+  `flag_min` varchar(191) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `flag_max` varchar(191) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `range_lower` decimal(7,3) DEFAULT NULL,
+  `range_upper` decimal(7,3) DEFAULT NULL,
+  `flag_lower` varchar(191) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `flag_upper` varchar(191) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `alphanumeric` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `interpretation` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  `result_interpretation_id` int(10) unsigned DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `measure_ranges_alphanumeric_index` (`alphanumeric`),
+  KEY `measure_ranges_measure_id_foreign` (`measure_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=230 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Data exporting was unselected.
+
+-- Dumping structure for table alis.measure_types
+DROP TABLE IF EXISTS `measure_types`;
+CREATE TABLE IF NOT EXISTS `measure_types` (
+  `id` int(10) unsigned NOT NULL,
+  `name` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `measure_types_name_unique` (`name`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Data exporting was unselected.
+
+-- Dumping structure for table alis.metrics
+DROP TABLE IF EXISTS `metrics`;
+CREATE TABLE IF NOT EXISTS `metrics` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `description` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Data exporting was unselected.
+
+-- Dumping structure for table alis.micro_patients_details
+DROP TABLE IF EXISTS `micro_patients_details`;
+CREATE TABLE IF NOT EXISTS `micro_patients_details` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `patient_id` int(10) unsigned NOT NULL,
+  `sub_county_residence` varchar(150) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `sub_county_workplace` varchar(150) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `name_next_kin` varchar(150) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `contact_next_kin` varchar(191) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `residence_next_kin` varchar(150) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `admission_date` datetime DEFAULT NULL,
+  `transfered` tinyint(4) DEFAULT NULL,
+  `facility_transfered` varchar(191) COLLATE utf8_unicode_ci NOT NULL,
+  `clinical_notes` text COLLATE utf8_unicode_ci NOT NULL,
+  `days_on_antibiotic` varchar(191) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `requested_by` varchar(191) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `clinician_contact` varchar(191) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `micro_patients_details_patient_id_foreign` (`patient_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Data exporting was unselected.
+
+-- Dumping structure for table alis.migrations
+DROP TABLE IF EXISTS `migrations`;
+CREATE TABLE IF NOT EXISTS `migrations` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `migration` varchar(191) COLLATE utf8_unicode_ci NOT NULL,
+  `batch` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=105 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Data exporting was unselected.
+
+-- Dumping structure for table alis.model_has_permissions
+DROP TABLE IF EXISTS `model_has_permissions`;
+CREATE TABLE IF NOT EXISTS `model_has_permissions` (
+  `permission_id` bigint(20) unsigned NOT NULL,
+  `model_type` varchar(191) COLLATE utf8_unicode_ci NOT NULL,
+  `model_id` bigint(20) unsigned NOT NULL,
+  PRIMARY KEY (`permission_id`,`model_id`,`model_type`),
+  KEY `model_has_permissions_model_id_model_type_index` (`model_id`,`model_type`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Data exporting was unselected.
+
+-- Dumping structure for table alis.model_has_roles
+DROP TABLE IF EXISTS `model_has_roles`;
+CREATE TABLE IF NOT EXISTS `model_has_roles` (
+  `role_id` bigint(20) unsigned NOT NULL,
+  `model_type` varchar(191) COLLATE utf8_unicode_ci NOT NULL,
+  `model_id` bigint(20) unsigned NOT NULL,
+  PRIMARY KEY (`role_id`,`model_id`,`model_type`),
+  KEY `model_has_roles_model_id_model_type_index` (`model_id`,`model_type`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Data exporting was unselected.
+
+-- Dumping structure for table alis.organisms
+DROP TABLE IF EXISTS `organisms`;
+CREATE TABLE IF NOT EXISTS `organisms` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `description` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `organisms_name_unique` (`name`)
+) ENGINE=MyISAM AUTO_INCREMENT=112 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Data exporting was unselected.
+
+-- Dumping structure for table alis.patient_antibiotics
+DROP TABLE IF EXISTS `patient_antibiotics`;
+CREATE TABLE IF NOT EXISTS `patient_antibiotics` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `patient_id` int(10) unsigned NOT NULL,
+  `drug_id` int(10) unsigned NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `patient_antibiotics_patient_id_foreign` (`patient_id`),
+  KEY `patient_antibiotics_drug_id_foreign` (`drug_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Data exporting was unselected.
+
+-- Dumping structure for table alis.patient_transfused
+DROP TABLE IF EXISTS `patient_transfused`;
+CREATE TABLE IF NOT EXISTS `patient_transfused` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `blood_bank_id` int(11) DEFAULT NULL,
+  `patient_id` int(11) NOT NULL,
+  `visit_id` int(11) DEFAULT NULL,
+  `reason` varchar(191) COLLATE utf8_unicode_ci NOT NULL,
+  `other_reasons` varchar(191) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `transfusion_history` varchar(191) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `date` date DEFAULT NULL,
+  `pregnancies` varchar(191) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `still_birth` varchar(191) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `jaundiced_babies` varchar(191) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `type` varchar(191) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `units_requested` int(11) DEFAULT NULL,
+  `units_given` int(11) DEFAULT NULL,
+  `created_by` int(11) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Data exporting was unselected.
+
+-- Dumping structure for table alis.permissions
+DROP TABLE IF EXISTS `permissions`;
+CREATE TABLE IF NOT EXISTS `permissions` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(191) COLLATE utf8_unicode_ci NOT NULL,
+  `display_name` varchar(191) COLLATE utf8_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `permissions_name_unique` (`name`)
+) ENGINE=MyISAM AUTO_INCREMENT=31 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Data exporting was unselected.
+
+-- Dumping structure for table alis.permission_role
+DROP TABLE IF EXISTS `permission_role`;
+CREATE TABLE IF NOT EXISTS `permission_role` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `permission_id` int(10) unsigned NOT NULL,
+  `role_id` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `permission_role_permission_id_foreign` (`permission_id`),
+  KEY `permission_role_role_id_foreign` (`role_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=1011 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Data exporting was unselected.
+
+-- Dumping structure for table alis.poc_results
+DROP TABLE IF EXISTS `poc_results`;
+CREATE TABLE IF NOT EXISTS `poc_results` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `patient_id` int(10) unsigned NOT NULL,
+  `results` enum('Negative','Positive','Error') COLLATE utf8_unicode_ci NOT NULL,
+  `test_date` date NOT NULL,
+  `tested_by` varchar(191) COLLATE utf8_unicode_ci NOT NULL,
+  `dispatched_by` varchar(191) COLLATE utf8_unicode_ci NOT NULL,
+  `dispatched_date` date NOT NULL,
+  `test_time` time DEFAULT NULL,
+  `equipment_used` varchar(191) COLLATE utf8_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `uploaded` int(3) NOT NULL DEFAULT '0',
+  `error_code` varchar(64) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `equipment_serial_number` varchar(191) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `catridge_serial_number` varchar(191) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `machine_sample_detection` varchar(191) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `device_status` varchar(191) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `hiv1_positive_control` varchar(191) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `hiv2_positive_control` varchar(191) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `negative_control` varchar(191) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `device_analysis` varchar(191) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `device_software_version` varchar(191) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `test_summary` varchar(191) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `test_type` varchar(191) COLLATE utf8_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `poc_results_patient_id_foreign` (`patient_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=406 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Data exporting was unselected.
+
+-- Dumping structure for table alis.poc_tables
+DROP TABLE IF EXISTS `poc_tables`;
+CREATE TABLE IF NOT EXISTS `poc_tables` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `facility_id` int(11) NOT NULL,
+  `referral_reason` varchar(60) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `testing_facility` int(10) NOT NULL,
+  `district_id` int(11) NOT NULL,
+  `gender` varchar(191) COLLATE utf8_unicode_ci NOT NULL,
+  `age` double(8,2) NOT NULL,
+  `exp_no` varchar(191) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `provisional_diagnosis` varchar(191) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `caretaker_number` varchar(191) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `entry_point` varchar(191) COLLATE utf8_unicode_ci NOT NULL,
+  `mother_name` varchar(191) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `mother_hts` varchar(60) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `mother_art` varchar(60) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `infant_name` varchar(191) COLLATE utf8_unicode_ci NOT NULL,
+  `breastfeeding_status` varchar(191) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `mother_hiv_status` varchar(191) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `collection_date` date DEFAULT NULL,
+  `pcr_level` varchar(191) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `created_by` varchar(191) COLLATE utf8_unicode_ci NOT NULL,
+  `pmtct_antenatal` varchar(191) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `pmtct_delivery` varchar(191) COLLATE utf8_unicode_ci NOT NULL,
+  `pmtct_postnatal` varchar(191) COLLATE utf8_unicode_ci NOT NULL,
+  `admission_date` date DEFAULT NULL,
+  `sample_id` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `infant_pmtctarv` varchar(191) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `mother_pmtctarv` varchar(191) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `other_entry_point` varchar(191) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `ulin` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `given_contrimazole` varchar(60) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `delivered_at` varchar(60) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `nin` varchar(60) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `feeding_status` varchar(60) COLLATE utf8_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `sample_id` (`sample_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=407 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Data exporting was unselected.
+
+-- Dumping structure for table alis.poc_vl_data
+DROP TABLE IF EXISTS `poc_vl_data`;
+CREATE TABLE IF NOT EXISTS `poc_vl_data` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `facility_id` int(11) NOT NULL,
+  `testing_facility` int(11) NOT NULL,
+  `referral_reason` varchar(191) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `art_no` varchar(191) COLLATE utf8_unicode_ci NOT NULL,
+  `other_id` varchar(191) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `dhis2_uid` varchar(191) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `sample_id` varchar(191) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `form_number` varchar(191) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `dob` date DEFAULT NULL,
+  `gender` varchar(191) COLLATE utf8_unicode_ci NOT NULL,
+  `initiation_date` date DEFAULT NULL,
+  `treatment_duration` int(11) DEFAULT NULL,
+  `who_stage` int(11) DEFAULT NULL,
+  `anc` varchar(191) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `is_pregnant` varchar(191) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `is_breastfeeding` varchar(191) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `patient_has_tb` varchar(191) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `tb_phase` int(11) DEFAULT NULL,
+  `arv_adherence` int(11) DEFAULT NULL,
+  `care_approach` int(11) DEFAULT NULL,
+  `indication_for_vltesting` varchar(191) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `current_regimen` int(11) DEFAULT NULL,
+  `treatment_line` int(11) DEFAULT NULL,
+  `result` varchar(191) COLLATE utf8_unicode_ci NOT NULL,
+  `poc_device` varchar(191) COLLATE utf8_unicode_ci NOT NULL,
+  `sample_collection_date` date NOT NULL,
+  `test_date` date NOT NULL,
+  `synchronized_by` varchar(191) COLLATE utf8_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Data exporting was unselected.
+
+-- Dumping structure for table alis.pre_analytic_specimen_rejections
+DROP TABLE IF EXISTS `pre_analytic_specimen_rejections`;
+CREATE TABLE IF NOT EXISTS `pre_analytic_specimen_rejections` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `specimen_id` int(10) unsigned NOT NULL,
+  `rejected_by` int(10) unsigned NOT NULL,
+  `rejection_reason_id` int(10) unsigned DEFAULT NULL,
+  `reject_explained_to` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `time_rejected` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `pre_analytic_specimen_rejections_rejected_by_index` (`rejected_by`),
+  KEY `pre_analytic_specimen_rejections_specimen_id_foreign` (`specimen_id`),
+  KEY `pre_analytic_specimen_rejections_rejection_reason_id_foreign` (`rejection_reason_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Data exporting was unselected.
+
+-- Dumping structure for table alis.referrals
+DROP TABLE IF EXISTS `referrals`;
+CREATE TABLE IF NOT EXISTS `referrals` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `test_id` varchar(191) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `sample_obtainer` varchar(45) COLLATE utf8_unicode_ci NOT NULL,
+  `cadre_obtainer` varchar(45) COLLATE utf8_unicode_ci NOT NULL,
+  `sample_date` date NOT NULL,
+  `sample_time` timestamp NULL DEFAULT NULL,
+  `time_dispatch` timestamp NULL DEFAULT NULL,
+  `storage_condition` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
+  `transport_type` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
+  `status` int(10) unsigned NOT NULL,
+  `referral_reason` int(10) unsigned NOT NULL,
+  `priority_specimen` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
+  `facility_id` int(10) unsigned NOT NULL,
+  `person` varchar(500) COLLATE utf8_unicode_ci NOT NULL,
+  `contacts` text COLLATE utf8_unicode_ci NOT NULL,
+  `user_id` int(10) unsigned NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `referrals_user_id_foreign` (`user_id`),
+  KEY `referrals_facility_id_foreign` (`facility_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Data exporting was unselected.
+
+-- Dumping structure for table alis.referral_reasons
+DROP TABLE IF EXISTS `referral_reasons`;
+CREATE TABLE IF NOT EXISTS `referral_reasons` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `reason` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Data exporting was unselected.
+
+-- Dumping structure for table alis.rejection_reasons
+DROP TABLE IF EXISTS `rejection_reasons`;
+CREATE TABLE IF NOT EXISTS `rejection_reasons` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `reason` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=16 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Data exporting was unselected.
+
+-- Dumping structure for table alis.report_diseases
+DROP TABLE IF EXISTS `report_diseases`;
+CREATE TABLE IF NOT EXISTS `report_diseases` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `test_type_id` int(10) unsigned NOT NULL,
+  `disease_id` int(10) unsigned NOT NULL,
+  `result_interpretation_id` int(10) unsigned DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `report_diseases_test_type_id_disease_id_unique` (`test_type_id`,`disease_id`),
+  KEY `report_diseases_disease_id_foreign` (`disease_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Data exporting was unselected.
+
+-- Dumping structure for table alis.requests
+DROP TABLE IF EXISTS `requests`;
+CREATE TABLE IF NOT EXISTS `requests` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `item_id` int(10) unsigned NOT NULL,
+  `quantity_remaining` varchar(191) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `test_category_id` int(10) unsigned DEFAULT NULL,
+  `quantity_ordered` int(11) DEFAULT NULL,
+  `tests_done` int(11) NOT NULL DEFAULT '0',
+  `user_id` int(10) unsigned NOT NULL,
+  `remarks` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `requests_test_category_id_foreign` (`test_category_id`),
+  KEY `requests_item_id_foreign` (`item_id`),
+  KEY `requests_user_id_foreign` (`user_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Data exporting was unselected.
+
+-- Dumping structure for table alis.result_interpretations
+DROP TABLE IF EXISTS `result_interpretations`;
+CREATE TABLE IF NOT EXISTS `result_interpretations` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(191) COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Data exporting was unselected.
+
+-- Dumping structure for table alis.roles
+DROP TABLE IF EXISTS `roles`;
+CREATE TABLE IF NOT EXISTS `roles` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(191) COLLATE utf8_unicode_ci NOT NULL,
+  `description` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `roles_name_unique` (`name`)
+) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Data exporting was unselected.
+
+-- Dumping structure for table alis.role_has_permissions
+DROP TABLE IF EXISTS `role_has_permissions`;
+CREATE TABLE IF NOT EXISTS `role_has_permissions` (
+  `permission_id` bigint(20) unsigned NOT NULL,
+  `role_id` bigint(20) unsigned NOT NULL,
+  PRIMARY KEY (`permission_id`,`role_id`),
+  KEY `role_has_permissions_role_id_foreign` (`role_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Data exporting was unselected.
+
+-- Dumping structure for table alis.spatie_permissions
+DROP TABLE IF EXISTS `spatie_permissions`;
+CREATE TABLE IF NOT EXISTS `spatie_permissions` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(191) COLLATE utf8_unicode_ci NOT NULL,
+  `display_name` varchar(191) COLLATE utf8_unicode_ci NOT NULL,
+  `guard_name` varchar(191) COLLATE utf8_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=32 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Data exporting was unselected.
+
+-- Dumping structure for table alis.spatie_roles
+DROP TABLE IF EXISTS `spatie_roles`;
+CREATE TABLE IF NOT EXISTS `spatie_roles` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(191) COLLATE utf8_unicode_ci NOT NULL,
+  `guard_name` varchar(191) COLLATE utf8_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Data exporting was unselected.
+
+-- Dumping structure for table alis.specimens
+DROP TABLE IF EXISTS `specimens`;
+CREATE TABLE IF NOT EXISTS `specimens` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `specimen_type_id` int(10) unsigned NOT NULL,
+  `specimen_status_id` int(10) unsigned NOT NULL DEFAULT '2',
+  `accepted_by` int(10) unsigned NOT NULL DEFAULT '0',
+  `sample_obtainer` varchar(60) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `referral_id` int(10) unsigned DEFAULT NULL,
+  `time_collected` timestamp NULL DEFAULT NULL,
+  `time_accepted` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `specimens_accepted_by_index` (`accepted_by`),
+  KEY `specimens_specimen_type_id_foreign` (`specimen_type_id`),
+  KEY `specimens_specimen_status_id_foreign` (`specimen_status_id`),
+  KEY `specimens_referral_id_foreign` (`referral_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=489 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Data exporting was unselected.
+
+-- Dumping structure for table alis.specimen_statuses
+DROP TABLE IF EXISTS `specimen_statuses`;
+CREATE TABLE IF NOT EXISTS `specimen_statuses` (
+  `id` int(10) unsigned NOT NULL,
+  `name` varchar(45) COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Data exporting was unselected.
+
+-- Dumping structure for table alis.specimen_types
+DROP TABLE IF EXISTS `specimen_types`;
+CREATE TABLE IF NOT EXISTS `specimen_types` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(45) COLLATE utf8_unicode_ci NOT NULL,
+  `description` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=28 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Data exporting was unselected.
+
+-- Dumping structure for table alis.suppliers
+DROP TABLE IF EXISTS `suppliers`;
+CREATE TABLE IF NOT EXISTS `suppliers` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `phone` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `email` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `address` varchar(191) COLLATE utf8_unicode_ci NOT NULL,
+  `user_id` int(10) unsigned NOT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `suppliers_user_id_foreign` (`user_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Data exporting was unselected.
+
+-- Dumping structure for table alis.tb_patient
+DROP TABLE IF EXISTS `tb_patient`;
+CREATE TABLE IF NOT EXISTS `tb_patient` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `patient_id` int(11) NOT NULL,
+  `visit_id` int(11) NOT NULL,
+  `patient_type` varchar(191) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `hiv_status` varchar(191) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `tb_diagnosis` varchar(191) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `follow_up` varchar(191) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Data exporting was unselected.
+
+-- Dumping structure for table alis.testtype_measures
+DROP TABLE IF EXISTS `testtype_measures`;
+CREATE TABLE IF NOT EXISTS `testtype_measures` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `test_type_id` int(10) unsigned NOT NULL,
+  `measure_id` int(10) unsigned NOT NULL,
+  `ordering` tinyint(4) DEFAULT NULL,
+  `nesting` tinyint(4) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `testtype_measures_test_type_id_measure_id_unique` (`test_type_id`,`measure_id`),
+  KEY `testtype_measures_measure_id_foreign` (`measure_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=93 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Data exporting was unselected.
+
+-- Dumping structure for table alis.testtype_specimentypes
+DROP TABLE IF EXISTS `testtype_specimentypes`;
+CREATE TABLE IF NOT EXISTS `testtype_specimentypes` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `test_type_id` int(10) unsigned NOT NULL,
+  `specimen_type_id` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `testtype_specimentypes_test_type_id_specimen_type_id_unique` (`test_type_id`,`specimen_type_id`),
+  KEY `testtype_specimentypes_specimen_type_id_foreign` (`specimen_type_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=93 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Data exporting was unselected.
+
+-- Dumping structure for table alis.test_categories
+DROP TABLE IF EXISTS `test_categories`;
+CREATE TABLE IF NOT EXISTS `test_categories` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `description` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `test_categories_name_unique` (`name`)
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Data exporting was unselected.
+
+-- Dumping structure for table alis.test_name_mappings
+DROP TABLE IF EXISTS `test_name_mappings`;
+CREATE TABLE IF NOT EXISTS `test_name_mappings` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `test_type_id` int(10) unsigned DEFAULT NULL,
+  `test_category_id` int(10) DEFAULT NULL,
+  `standard_name` varchar(191) COLLATE utf8_unicode_ci NOT NULL,
+  `system_name` varchar(191) COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `test_name_mappings_system_name_unique` (`system_name`)
+) ENGINE=MyISAM AUTO_INCREMENT=72 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Data exporting was unselected.
+
+-- Dumping structure for table alis.test_phases
+DROP TABLE IF EXISTS `test_phases`;
+CREATE TABLE IF NOT EXISTS `test_phases` (
+  `id` int(10) unsigned NOT NULL,
+  `name` varchar(45) COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Data exporting was unselected.
+
+-- Dumping structure for table alis.test_statuses
+DROP TABLE IF EXISTS `test_statuses`;
+CREATE TABLE IF NOT EXISTS `test_statuses` (
+  `id` int(10) unsigned NOT NULL,
+  `name` varchar(45) COLLATE utf8_unicode_ci NOT NULL,
+  `test_phase_id` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `test_statuses_test_phase_id_foreign` (`test_phase_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Data exporting was unselected.
+
+-- Dumping structure for table alis.test_types
+DROP TABLE IF EXISTS `test_types`;
+CREATE TABLE IF NOT EXISTS `test_types` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `description` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `parentId` int(3) DEFAULT NULL,
+  `test_category_id` int(10) unsigned NOT NULL,
+  `targetTAT` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `targetTAT_unit` varchar(10) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `orderable_test` int(11) DEFAULT NULL,
+  `prevalence_threshold` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `accredited` tinyint(4) DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `test_types_test_category_id_foreign` (`test_category_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=48 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Data exporting was unselected.
+
+-- Dumping structure for table alis.therapy
+DROP TABLE IF EXISTS `therapy`;
+CREATE TABLE IF NOT EXISTS `therapy` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `visit_id` int(10) unsigned NOT NULL,
+  `patient_id` int(10) unsigned NOT NULL,
+  `previous_therapy` varchar(191) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `current_therapy` varchar(191) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `clinical_notes` varchar(500) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `clinician` varchar(500) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `contact` varchar(191) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `clinician_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=552 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Data exporting was unselected.
+
+-- Dumping structure for table alis.tokens
+DROP TABLE IF EXISTS `tokens`;
+CREATE TABLE IF NOT EXISTS `tokens` (
+  `email` varchar(191) COLLATE utf8_unicode_ci NOT NULL,
+  `token` varchar(191) COLLATE utf8_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  KEY `tokens_email_index` (`email`),
+  KEY `tokens_token_index` (`token`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Data exporting was unselected.
+
+-- Dumping structure for table alis.unhls_analyte_result
+DROP TABLE IF EXISTS `unhls_analyte_result`;
+CREATE TABLE IF NOT EXISTS `unhls_analyte_result` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `analyte_name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `analyte_result` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `ct` double(8,2) NOT NULL,
+  `endpt` double(8,2) NOT NULL,
+  `test_id` int(10) unsigned NOT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `unhls_analyte_result_test_id_foreign` (`test_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Data exporting was unselected.
+
+-- Dumping structure for table alis.unhls_bbactions
+DROP TABLE IF EXISTS `unhls_bbactions`;
+CREATE TABLE IF NOT EXISTS `unhls_bbactions` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `actionname` varchar(191) COLLATE utf8_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=20 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Data exporting was unselected.
+
+-- Dumping structure for table alis.unhls_bbcauses
+DROP TABLE IF EXISTS `unhls_bbcauses`;
+CREATE TABLE IF NOT EXISTS `unhls_bbcauses` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `causename` varchar(191) COLLATE utf8_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=12 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Data exporting was unselected.
+
+-- Dumping structure for table alis.unhls_bbincidences
+DROP TABLE IF EXISTS `unhls_bbincidences`;
+CREATE TABLE IF NOT EXISTS `unhls_bbincidences` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `facility_id` int(10) unsigned NOT NULL,
+  `serial_no` varchar(191) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `occurrence_date` date DEFAULT NULL,
+  `occurrence_time` time DEFAULT NULL,
+  `personnel_id` varchar(191) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `personnel_surname` varchar(191) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `personnel_othername` varchar(191) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `personnel_gender` varchar(191) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `personnel_dob` date DEFAULT NULL,
+  `personnel_age` varchar(191) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `personnel_category` varchar(191) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `personnel_telephone` varchar(191) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `personnel_email` varchar(191) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `nok_name` varchar(191) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `nok_telephone` varchar(191) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `nok_email` varchar(191) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `lab_section` varchar(191) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `occurrence` varchar(191) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `ulin` varchar(191) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `equip_name` varchar(191) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `equip_code` varchar(191) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `task` varchar(191) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `description` text COLLATE utf8_unicode_ci,
+  `officer_fname` varchar(191) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `officer_lname` varchar(191) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `officer_cadre` varchar(191) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `officer_telephone` varchar(191) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `extent` varchar(191) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `firstaid` text COLLATE utf8_unicode_ci,
+  `intervention` text COLLATE utf8_unicode_ci,
+  `intervention_date` date DEFAULT NULL,
+  `intervention_time` time DEFAULT NULL,
+  `intervention_followup` text COLLATE utf8_unicode_ci,
+  `mo_fname` varchar(191) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `mo_lname` varchar(191) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `mo_designation` varchar(191) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `mo_telephone` varchar(191) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `cause` text COLLATE utf8_unicode_ci,
+  `corrective_action` text COLLATE utf8_unicode_ci,
+  `referral_status` text COLLATE utf8_unicode_ci,
+  `status` text COLLATE utf8_unicode_ci,
+  `analysis_date` date DEFAULT NULL,
+  `analysis_time` time DEFAULT NULL,
+  `bo_fname` varchar(191) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `bo_lname` varchar(191) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `bo_designation` varchar(191) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `bo_telephone` varchar(191) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `findings` text COLLATE utf8_unicode_ci,
+  `improvement_plan` text COLLATE utf8_unicode_ci,
+  `response_date` date DEFAULT NULL,
+  `response_time` time DEFAULT NULL,
+  `brm_fname` varchar(191) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `brm_lname` varchar(191) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `brm_designation` varchar(191) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `brm_telephone` varchar(191) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `createdby` int(10) unsigned DEFAULT NULL,
+  `updatedby` int(10) unsigned DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `unhls_bbincidences_facility_id_foreign` (`facility_id`),
+  KEY `unhls_bbincidences_createdby_foreign` (`createdby`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Data exporting was unselected.
+
+-- Dumping structure for table alis.unhls_bbincidences_action
+DROP TABLE IF EXISTS `unhls_bbincidences_action`;
+CREATE TABLE IF NOT EXISTS `unhls_bbincidences_action` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `bbincidence_id` int(10) unsigned NOT NULL,
+  `action_id` int(10) unsigned NOT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `unhls_bbincidences_action_bbincidence_id_foreign` (`bbincidence_id`),
+  KEY `unhls_bbincidences_action_action_id_foreign` (`action_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Data exporting was unselected.
+
+-- Dumping structure for table alis.unhls_bbincidences_cause
+DROP TABLE IF EXISTS `unhls_bbincidences_cause`;
+CREATE TABLE IF NOT EXISTS `unhls_bbincidences_cause` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `bbincidence_id` int(10) unsigned NOT NULL,
+  `cause_id` int(10) unsigned NOT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `unhls_bbincidences_cause_bbincidence_id_foreign` (`bbincidence_id`),
+  KEY `unhls_bbincidences_cause_cause_id_foreign` (`cause_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Data exporting was unselected.
+
+-- Dumping structure for table alis.unhls_bbincidences_nature
+DROP TABLE IF EXISTS `unhls_bbincidences_nature`;
+CREATE TABLE IF NOT EXISTS `unhls_bbincidences_nature` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `bbincidence_id` int(10) unsigned NOT NULL,
+  `nature_id` int(10) unsigned NOT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `unhls_bbincidences_nature_bbincidence_id_foreign` (`bbincidence_id`),
+  KEY `unhls_bbincidences_nature_nature_id_foreign` (`nature_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Data exporting was unselected.
+
+-- Dumping structure for table alis.unhls_bbnatures
+DROP TABLE IF EXISTS `unhls_bbnatures`;
+CREATE TABLE IF NOT EXISTS `unhls_bbnatures` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(191) COLLATE utf8_unicode_ci NOT NULL,
+  `class` varchar(191) COLLATE utf8_unicode_ci NOT NULL,
+  `priority` varchar(191) COLLATE utf8_unicode_ci NOT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=32 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Data exporting was unselected.
+
+-- Dumping structure for table alis.unhls_districts
+DROP TABLE IF EXISTS `unhls_districts`;
+CREATE TABLE IF NOT EXISTS `unhls_districts` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(191) COLLATE utf8_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=118 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Data exporting was unselected.
+
+-- Dumping structure for table alis.unhls_drugs
+DROP TABLE IF EXISTS `unhls_drugs`;
+CREATE TABLE IF NOT EXISTS `unhls_drugs` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `code` varchar(191) COLLATE utf8_unicode_ci NOT NULL,
+  `name` varchar(191) COLLATE utf8_unicode_ci NOT NULL,
+  `formulation` varchar(191) COLLATE utf8_unicode_ci NOT NULL,
+  `strength` varchar(191) COLLATE utf8_unicode_ci NOT NULL,
+  `pack_size` varchar(191) COLLATE utf8_unicode_ci NOT NULL,
+  `unit_of_issue` varchar(191) COLLATE utf8_unicode_ci NOT NULL,
+  `amc` varchar(191) COLLATE utf8_unicode_ci NOT NULL,
+  `max_stock_level` varchar(191) COLLATE utf8_unicode_ci NOT NULL,
+  `min_stock_level` varchar(191) COLLATE utf8_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Data exporting was unselected.
+
+-- Dumping structure for table alis.unhls_equipment_breakdown
+DROP TABLE IF EXISTS `unhls_equipment_breakdown`;
+CREATE TABLE IF NOT EXISTS `unhls_equipment_breakdown` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `district_id` int(10) unsigned NOT NULL,
+  `facility_id` int(10) unsigned NOT NULL,
+  `year_id` int(10) unsigned NOT NULL,
+  `equipment_id` int(10) unsigned NOT NULL,
+  `description` text COLLATE utf8_unicode_ci NOT NULL,
+  `action_taken` text COLLATE utf8_unicode_ci NOT NULL,
+  `hsd_request` text COLLATE utf8_unicode_ci,
+  `in_charge_id` int(11) DEFAULT NULL,
+  `priority` int(11) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `report_date` datetime DEFAULT NULL,
+  `restored_by` int(11) DEFAULT NULL,
+  `restore_date` datetime DEFAULT NULL,
+  `comment` longtext COLLATE utf8_unicode_ci,
+  `breakdown_type` int(11) DEFAULT NULL,
+  `reported_by` varchar(191) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `breakdown_date` datetime DEFAULT NULL,
+  `facility_code` varchar(191) COLLATE utf8_unicode_ci NOT NULL,
+  `facility_level` varchar(191) COLLATE utf8_unicode_ci NOT NULL,
+  `equipment_code` varchar(191) COLLATE utf8_unicode_ci NOT NULL,
+  `equipment_type` varchar(191) COLLATE utf8_unicode_ci NOT NULL,
+  `problem` text COLLATE utf8_unicode_ci,
+  `equipment_failure` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `reporting_officer` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `reporting_officer_contact` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `reporting_officer_email` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `intervention_authority` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `conclusion` text COLLATE utf8_unicode_ci,
+  `verified_by` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `verification_date` date DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `unhls_equipment_breakdown_district_id_foreign` (`district_id`),
+  KEY `unhls_equipment_breakdown_facility_id_foreign` (`facility_id`),
+  KEY `unhls_equipment_breakdown_year_id_foreign` (`year_id`),
+  KEY `unhls_equipment_breakdown_equipment_id_foreign` (`equipment_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Data exporting was unselected.
+
+-- Dumping structure for table alis.unhls_equipment_inventory
+DROP TABLE IF EXISTS `unhls_equipment_inventory`;
+CREATE TABLE IF NOT EXISTS `unhls_equipment_inventory` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `district_id` int(10) unsigned NOT NULL,
+  `facility_id` int(10) unsigned NOT NULL,
+  `year_id` int(10) unsigned NOT NULL,
+  `name` varchar(191) COLLATE utf8_unicode_ci NOT NULL,
+  `name_id` int(11) DEFAULT NULL,
+  `unique_number` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `model` varchar(191) COLLATE utf8_unicode_ci NOT NULL,
+  `serial_number` varchar(191) COLLATE utf8_unicode_ci NOT NULL,
+  `location` int(11) NOT NULL,
+  `procurement_type` varchar(191) COLLATE utf8_unicode_ci NOT NULL,
+  `purchase_date` datetime NOT NULL,
+  `delivery_date` datetime NOT NULL,
+  `verification_date` datetime NOT NULL,
+  `installation_date` datetime NOT NULL,
+  `spare_parts` tinyint(1) NOT NULL,
+  `warranty` int(11) NOT NULL,
+  `life_span` int(11) NOT NULL,
+  `service_frequency` tinyint(1) NOT NULL,
+  `service_contract` tinyint(1) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `supplier_id` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `unhls_equipment_inventory_district_id_foreign` (`district_id`),
+  KEY `unhls_equipment_inventory_facility_id_foreign` (`facility_id`),
+  KEY `unhls_equipment_inventory_year_id_foreign` (`year_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Data exporting was unselected.
+
+-- Dumping structure for table alis.unhls_equipment_maintenance
+DROP TABLE IF EXISTS `unhls_equipment_maintenance`;
+CREATE TABLE IF NOT EXISTS `unhls_equipment_maintenance` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `district_id` int(10) unsigned NOT NULL,
+  `facility_id` int(10) unsigned NOT NULL,
+  `year_id` int(10) unsigned NOT NULL,
+  `equipment_id` int(10) unsigned NOT NULL,
+  `last_service_date` datetime NOT NULL,
+  `next_service_date` datetime NOT NULL,
+  `serviced_by_name` text COLLATE utf8_unicode_ci NOT NULL,
+  `serviced_by_contact` text COLLATE utf8_unicode_ci NOT NULL,
+  `supplier_id` int(11) NOT NULL,
+  `comment` text COLLATE utf8_unicode_ci,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `unhls_equipment_maintenance_district_id_foreign` (`district_id`),
+  KEY `unhls_equipment_maintenance_facility_id_foreign` (`facility_id`),
+  KEY `unhls_equipment_maintenance_year_id_foreign` (`year_id`),
+  KEY `unhls_equipment_maintenance_equipment_id_foreign` (`equipment_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Data exporting was unselected.
+
+-- Dumping structure for table alis.unhls_equipment_suppliers
+DROP TABLE IF EXISTS `unhls_equipment_suppliers`;
+CREATE TABLE IF NOT EXISTS `unhls_equipment_suppliers` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(191) COLLATE utf8_unicode_ci NOT NULL,
+  `phone` varchar(191) COLLATE utf8_unicode_ci NOT NULL,
+  `email` varchar(191) COLLATE utf8_unicode_ci NOT NULL,
+  `address` varchar(191) COLLATE utf8_unicode_ci NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Data exporting was unselected.
+
+-- Dumping structure for table alis.unhls_facilities
+DROP TABLE IF EXISTS `unhls_facilities`;
+CREATE TABLE IF NOT EXISTS `unhls_facilities` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `code` varchar(191) COLLATE utf8_unicode_ci NOT NULL,
+  `name` varchar(191) COLLATE utf8_unicode_ci NOT NULL,
+  `dhis2_name` varchar(60) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `district_id` int(10) unsigned NOT NULL,
+  `district_name` varchar(191) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `level_id` int(10) unsigned NOT NULL,
+  `ownership_id` int(10) unsigned NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `address` text COLLATE utf8_unicode_ci,
+  `email` text COLLATE utf8_unicode_ci,
+  `contact` text COLLATE utf8_unicode_ci,
+  PRIMARY KEY (`id`),
+  KEY `unhls_facilities_level_id_foreign` (`level_id`),
+  KEY `unhls_facilities_district_id_foreign` (`district_id`),
+  KEY `unhls_facilities_ownership_id_foreign` (`ownership_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=165 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Data exporting was unselected.
+
+-- Dumping structure for table alis.unhls_facility_level
+DROP TABLE IF EXISTS `unhls_facility_level`;
+CREATE TABLE IF NOT EXISTS `unhls_facility_level` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `level` varchar(191) COLLATE utf8_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Data exporting was unselected.
+
+-- Dumping structure for table alis.unhls_facility_ownership
+DROP TABLE IF EXISTS `unhls_facility_ownership`;
+CREATE TABLE IF NOT EXISTS `unhls_facility_ownership` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `owner` varchar(191) COLLATE utf8_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Data exporting was unselected.
+
+-- Dumping structure for table alis.unhls_financial_years
+DROP TABLE IF EXISTS `unhls_financial_years`;
+CREATE TABLE IF NOT EXISTS `unhls_financial_years` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `year` varchar(191) COLLATE utf8_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Data exporting was unselected.
+
+-- Dumping structure for table alis.unhls_patients
+DROP TABLE IF EXISTS `unhls_patients`;
+CREATE TABLE IF NOT EXISTS `unhls_patients` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `patient_number` varchar(191) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `ulin` varchar(191) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `nin` varchar(191) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `name` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `dob` date NOT NULL,
+  `gender` tinyint(4) NOT NULL DEFAULT '0',
+  `admission_date` datetime DEFAULT NULL,
+  `nationality` varchar(25) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `email` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `address` varchar(150) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `village_residence` varchar(150) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `district_residence` int(10) unsigned DEFAULT NULL,
+  `village_workplace` varchar(150) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `district_workplace` int(10) unsigned DEFAULT NULL,
+  `phone_number` varchar(191) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `occupation` varchar(191) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `external_patient_number` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `created_by` int(10) unsigned NOT NULL DEFAULT '0',
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `is_micro` int(10) unsigned NOT NULL DEFAULT '0',
+  `age` int(10) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `unhls_patients_external_patient_number_index` (`external_patient_number`),
+  KEY `unhls_patients_created_by_index` (`created_by`),
+  KEY `unhls_patients_district_residence_foreign` (`district_residence`),
+  KEY `unhls_patients_district_workplace_foreign` (`district_workplace`)
+) ENGINE=MyISAM AUTO_INCREMENT=545 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Data exporting was unselected.
+
+-- Dumping structure for table alis.unhls_recalled_test_results
+DROP TABLE IF EXISTS `unhls_recalled_test_results`;
+CREATE TABLE IF NOT EXISTS `unhls_recalled_test_results` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `patient_id` int(10) unsigned NOT NULL,
+  `drug_id` int(10) unsigned NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `unhls_recalled_test_results_patient_id_foreign` (`patient_id`),
+  KEY `unhls_recalled_test_results_drug_id_foreign` (`drug_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Data exporting was unselected.
+
+-- Dumping structure for table alis.unhls_rejection_reasons
+DROP TABLE IF EXISTS `unhls_rejection_reasons`;
+CREATE TABLE IF NOT EXISTS `unhls_rejection_reasons` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `reason` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Data exporting was unselected.
+
+-- Dumping structure for table alis.unhls_staff
+DROP TABLE IF EXISTS `unhls_staff`;
+CREATE TABLE IF NOT EXISTS `unhls_staff` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `facility_id` int(10) unsigned NOT NULL,
+  `firstName` varchar(191) COLLATE utf8_unicode_ci NOT NULL,
+  `lastName` varchar(191) COLLATE utf8_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `unhls_staff_facility_id_foreign` (`facility_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Data exporting was unselected.
+
+-- Dumping structure for table alis.unhls_stockcard
+DROP TABLE IF EXISTS `unhls_stockcard`;
+CREATE TABLE IF NOT EXISTS `unhls_stockcard` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `district_id` int(10) unsigned NOT NULL,
+  `facility_id` int(10) unsigned NOT NULL,
+  `year_id` int(10) unsigned NOT NULL,
+  `commodity_id` int(10) unsigned NOT NULL,
+  `to_from` int(11) NOT NULL,
+  `to_from_type` int(11) NOT NULL,
+  `voucher_number` varchar(191) COLLATE utf8_unicode_ci NOT NULL,
+  `quantity` int(11) NOT NULL,
+  `action` varchar(191) COLLATE utf8_unicode_ci NOT NULL,
+  `batch_number` varchar(191) COLLATE utf8_unicode_ci NOT NULL,
+  `issue_date` datetime NOT NULL,
+  `expiry_date` datetime NOT NULL,
+  `initials` varchar(191) COLLATE utf8_unicode_ci NOT NULL,
+  `remarks` varchar(191) COLLATE utf8_unicode_ci NOT NULL,
+  `balance` int(11) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `transaction_date` datetime DEFAULT NULL,
+  `quantity_in` int(11) DEFAULT NULL,
+  `quantity_out` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `unhls_stockcard_district_id_foreign` (`district_id`),
+  KEY `unhls_stockcard_facility_id_foreign` (`facility_id`),
+  KEY `unhls_stockcard_year_id_foreign` (`year_id`),
+  KEY `unhls_stockcard_commodity_id_foreign` (`commodity_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Data exporting was unselected.
+
+-- Dumping structure for table alis.unhls_stockrequisition
+DROP TABLE IF EXISTS `unhls_stockrequisition`;
+CREATE TABLE IF NOT EXISTS `unhls_stockrequisition` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `district_id` int(10) unsigned NOT NULL,
+  `facility_id` int(10) unsigned NOT NULL,
+  `year_id` int(10) unsigned NOT NULL,
+  `item_id` int(10) unsigned NOT NULL,
+  `issued_to` varchar(191) COLLATE utf8_unicode_ci NOT NULL,
+  `voucher_number` varchar(191) COLLATE utf8_unicode_ci NOT NULL,
+  `quantity_required` int(11) NOT NULL,
+  `quantity_issued` int(11) NOT NULL,
+  `issue_date` datetime NOT NULL,
+  `remarks` varchar(191) COLLATE utf8_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `unhls_stockrequisition_district_id_foreign` (`district_id`),
+  KEY `unhls_stockrequisition_facility_id_foreign` (`facility_id`),
+  KEY `unhls_stockrequisition_year_id_foreign` (`year_id`),
+  KEY `unhls_stockrequisition_item_id_foreign` (`item_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Data exporting was unselected.
+
+-- Dumping structure for table alis.unhls_testpurposes
+DROP TABLE IF EXISTS `unhls_testpurposes`;
+CREATE TABLE IF NOT EXISTS `unhls_testpurposes` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(45) COLLATE utf8_unicode_ci NOT NULL,
+  `description` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Data exporting was unselected.
+
+-- Dumping structure for table alis.unhls_tests
+DROP TABLE IF EXISTS `unhls_tests`;
+CREATE TABLE IF NOT EXISTS `unhls_tests` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `visit_id` bigint(20) unsigned NOT NULL,
+  `urgency_id` int(10) DEFAULT NULL,
+  `test_type_id` int(10) unsigned NOT NULL,
+  `specimen_id` int(10) unsigned DEFAULT NULL,
+  `interpretation` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `test_status_id` int(10) unsigned NOT NULL DEFAULT '0',
+  `created_by` int(10) unsigned NOT NULL,
+  `tested_by` int(10) unsigned NOT NULL DEFAULT '0',
+  `verified_by` int(10) unsigned NOT NULL DEFAULT '0',
+  `requested_by` varchar(60) COLLATE utf8_unicode_ci NOT NULL,
+  `clinician_id` int(10) unsigned DEFAULT NULL,
+  `purpose` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `time_created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `time_started` timestamp NULL DEFAULT NULL,
+  `time_completed` timestamp NULL DEFAULT NULL,
+  `time_verified` timestamp NULL DEFAULT NULL,
+  `time_sent` timestamp NULL DEFAULT NULL,
+  `external_id` int(11) DEFAULT NULL,
+  `instrument` varchar(191) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `instrument_id` int(11) DEFAULT NULL,
+  `approved_by` int(10) unsigned DEFAULT NULL,
+  `time_approved` timestamp NULL DEFAULT NULL,
+  `revised_by` int(10) DEFAULT NULL,
+  `time_revised` date DEFAULT NULL,
+  `method_used` varchar(60) COLLATE utf8_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `unhls_tests_created_by_index` (`created_by`),
+  KEY `unhls_tests_tested_by_index` (`tested_by`),
+  KEY `unhls_tests_verified_by_index` (`verified_by`),
+  KEY `unhls_tests_visit_id_foreign` (`visit_id`),
+  KEY `unhls_tests_test_type_id_foreign` (`test_type_id`),
+  KEY `unhls_tests_specimen_id_foreign` (`specimen_id`),
+  KEY `unhls_tests_test_status_id_foreign` (`test_status_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=489 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Data exporting was unselected.
+
+-- Dumping structure for table alis.unhls_test_results
+DROP TABLE IF EXISTS `unhls_test_results`;
+CREATE TABLE IF NOT EXISTS `unhls_test_results` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `test_id` int(10) unsigned NOT NULL,
+  `measure_id` int(10) unsigned NOT NULL,
+  `result` varchar(1000) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `time_entered` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `sample_id` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `revised_result` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `revised_by2` int(10) DEFAULT NULL,
+  `revised_by` int(10) DEFAULT NULL,
+  `time_revised` date DEFAULT NULL,
+  `uploaded` int(3) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `unhls_test_results_test_id_measure_id_unique` (`test_id`,`measure_id`),
+  KEY `unhls_test_results_measure_id_foreign` (`measure_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=488 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Data exporting was unselected.
+
+-- Dumping structure for table alis.unhls_visits
+DROP TABLE IF EXISTS `unhls_visits`;
+CREATE TABLE IF NOT EXISTS `unhls_visits` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `patient_id` int(10) unsigned NOT NULL,
+  `visit_type` varchar(12) COLLATE utf8_unicode_ci NOT NULL DEFAULT 'Out-patient',
+  `visit_number` int(10) unsigned DEFAULT NULL,
+  `visit_lab_number` varchar(25) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `facility_id` int(10) unsigned DEFAULT NULL,
+  `facility_lab_number` varchar(191) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `is_printed` int(2) NOT NULL DEFAULT '0',
+  `printed_by` int(3) DEFAULT NULL,
+  `time_printed` datetime DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `ward_id` int(11) DEFAULT NULL,
+  `bed_no` varchar(191) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `visit_status_id` int(11) DEFAULT NULL,
+  `hospitalized` int(10) unsigned DEFAULT NULL,
+  `urgency` int(10) DEFAULT NULL,
+  `on_antibiotics` int(10) unsigned DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `unhls_visits_visit_number_index` (`visit_number`),
+  KEY `unhls_visits_patient_id_foreign` (`patient_id`),
+  KEY `unhls_visits_facility_id_foreign` (`facility_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=552 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Data exporting was unselected.
+
+-- Dumping structure for table alis.unhls_warehouse
+DROP TABLE IF EXISTS `unhls_warehouse`;
+CREATE TABLE IF NOT EXISTS `unhls_warehouse` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(191) COLLATE utf8_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Data exporting was unselected.
+
+-- Dumping structure for table alis.users
+DROP TABLE IF EXISTS `users`;
+CREATE TABLE IF NOT EXISTS `users` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `username` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `password` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `email` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `name` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `gender` tinyint(4) NOT NULL DEFAULT '0',
+  `designation` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `image` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `signature` varchar(191) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `remember_token` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `facility_id` int(10) unsigned DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `phone_contact` varchar(191) COLLATE utf8_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `users_username_unique` (`username`),
+  KEY `users_facility_id_foreign` (`facility_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=17 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Data exporting was unselected.
+
+-- Dumping structure for table alis.uuids
+DROP TABLE IF EXISTS `uuids`;
+CREATE TABLE IF NOT EXISTS `uuids` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `counter` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=952 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Data exporting was unselected.
+
+-- Dumping structure for table alis.viral_load_details
+DROP TABLE IF EXISTS `viral_load_details`;
+CREATE TABLE IF NOT EXISTS `viral_load_details` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `facility_id` int(11) DEFAULT NULL,
+  `patient_id` int(11) NOT NULL,
+  `referral_reason` varchar(191) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `site_id` int(11) DEFAULT NULL,
+  `form_number` varchar(191) COLLATE utf8_unicode_ci NOT NULL,
+  `initiation_date` date DEFAULT NULL,
+  `duration_on_current_regimen` varchar(191) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `who_stage` varchar(191) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `anc` varchar(191) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `mother_pregnant` varchar(191) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `mother_breastfeeding` varchar(191) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `active_tb` varchar(191) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `tb_phase` varchar(191) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `arv_adherence` varchar(191) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `care_approach` varchar(191) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `indication` varchar(191) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `regiment` varchar(191) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `treatment_line` varchar(191) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `uploaded` int(11) NOT NULL DEFAULT '0',
+  `test_date` date NOT NULL,
+  `poc_device` varchar(191) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `created_by` int(11) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=544 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Data exporting was unselected.
+
+-- Dumping structure for table alis.visit_statuses
+DROP TABLE IF EXISTS `visit_statuses`;
+CREATE TABLE IF NOT EXISTS `visit_statuses` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(45) COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Data exporting was unselected.
+
+-- Dumping structure for table alis.wards
+DROP TABLE IF EXISTS `wards`;
+CREATE TABLE IF NOT EXISTS `wards` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(45) COLLATE utf8_unicode_ci NOT NULL,
+  `description` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `ward_type_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Data exporting was unselected.
+
+-- Dumping structure for table alis.ward_type
+DROP TABLE IF EXISTS `ward_type`;
+CREATE TABLE IF NOT EXISTS `ward_type` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(191) COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Data exporting was unselected.
+
+-- Dumping structure for table alis.zone_diameters
+DROP TABLE IF EXISTS `zone_diameters`;
+CREATE TABLE IF NOT EXISTS `zone_diameters` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `drug_id` int(10) unsigned NOT NULL,
+  `organism_id` int(10) unsigned NOT NULL,
+  `resistant_max` decimal(4,1) DEFAULT NULL,
+  `intermediate_min` decimal(4,1) DEFAULT NULL,
+  `intermediate_max` decimal(4,1) DEFAULT NULL,
+  `sensitive_min` decimal(4,1) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `zone_diameters_drug_id_foreign` (`drug_id`),
+  KEY `zone_diameters_organism_id_foreign` (`organism_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=1314 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Data exporting was unselected.
+
+/*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
+/*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
