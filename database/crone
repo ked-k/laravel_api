@@ -19,3 +19,6 @@ nohup ~/curl_every_10_seconds.sh &
 
 # Step 4: Verify that the script is running
 ps aux | grep curl_every_10_seconds.sh
+
+
+ ASPARTATE-AMINO TRANSFERASE (AST), ALANINE-AMINO TRANSFERASE (ALT/), ALKALINE PHOSPHATASE (ALP), GAMMA GT (GGT), TOTAL PROTEIN, ALBUMIN, TOTAL BILIRUBIN, DIRECT BILIRUBIN, INDIRECT BILIRUBIN
