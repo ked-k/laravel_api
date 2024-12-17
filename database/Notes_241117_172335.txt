@@ -172,3 +172,18 @@ eAFYA_DB_PASSWORD=KGH@EAFYA2028!
 db name - kambugaeafyadb  username - postgres  password KGH@EAFYA2028!
 bwindi BGH@E
 
+
+nano ~/curl_every_10_seconds.sh
+
+#!/bin/bash
+
+while true; do
+    /usr/bin/curl http://192.168.88.2/eafya-patient
+    sleep 10  # Wait for 10 seconds before the next execution
+done
+chmod +x ~/curl_every_10_seconds.sh
+nohup ~/curl_every_10_seconds.sh &
+ps aux | grep curl_every_10_seconds.sh
+
+Alternative: Using cron with sleep in a loop
+crontab -e
